@@ -1,3 +1,10 @@
+<?php
+require_once("Connect.php");
+
+$objeto = new ClsConnection();
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,6 +46,41 @@
         <input type="checkbox" name="carreras[]" value="patrimonio">
         <label for="electrica">Técnico en Ingeniería Eléctrica</label>
         <input type="checkbox" name="carreras[]" value="electrica">
+
+        <input type="submit" name="enviar" value="enviar">
     </form>
+    <?php
+    if (isset($_POST["enviar"])) 
+    {
+        $datos[] = $_POST["carnet"];
+        $datos[] = $_POST["nombres"];
+        $datos[] = $_POST["apellidos"];
+        $datos[] = $_POST["direccion"];
+        $datos[] = $_POST["clave"];
+        $datos[] = $_POST["tipoUsuario"];
+        if (isset($_POST["carreras"])) 
+        {
+            $carrera = implode(",", $_REQUEST["carreras"]);
+            $datos[] = $carrera;
+        }
+        $datos[]=0;
+
+        $tabla = "usuario";
+        $consulta = $objeto -> SQL_consulta($tabla, "carnet");
+
+        while ($fila = $consulta -> fetch_assoc())
+        {
+            if ($datos[0] == $fila["carnet"])
+            {
+                echo"<script>alert('Ya existe')</script>";
+            }
+            else 
+            {
+                $campos = array('carnet','nombres','apellidos', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes');
+                $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
+            }
+        }
+    }
+    ?>
 </body>
 </html>

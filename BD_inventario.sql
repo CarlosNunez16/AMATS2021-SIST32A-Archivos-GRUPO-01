@@ -2,7 +2,7 @@ CREATE DATABASE inventario;
 USE inventario;
 
 CREATE TABLE usuario (
-carnet INT NOT NULL AUTO_INCREMENT,
+carnet INT NOT NULL,
 nombres VARCHAR (100) NOT NULL,
 apellidos VARCHAR (100) NOT NULL,
 direccion VARCHAR (100) NOT NULL,
@@ -102,3 +102,5 @@ numero_serie VARCHAR (100) NOT NULL,
 nueva_ubicacion VARCHAR (100) NOT NULL, 
 PRIMARY KEY (idRefacciones)
 );
+SELECT * FROM usuario
+INSERT INTO usuario (carnet,nombres,apellidos, direccion, contraseña, tipo_usuario, carrera, cantidad_reportes) VALUES (128820, 'Carlos', 'Pineda', 'Santa Ana', 'admin', 'administrador', 'Sistemas', 0);
