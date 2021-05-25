@@ -2,8 +2,6 @@
 require_once("Connect.php");
 
 $objeto = new ClsConnection();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,9 +31,9 @@ $objeto = new ClsConnection();
         <br>
         <label for="tipoUsuario">Tipo de usuario:</label>
         <select name="tipoUsuario" id="tipoUsuario" required>
-        <option value="admin">Administrador</option>
-        <option value="empleado">Empleado</option>
-        <option value="estudiante">Estudiante</option>
+        <option value="Administrador">Administrador</option>
+        <option value="Empleado">Empleado</option>
+        <option value="Estudiante">Estudiante</option>
         </select>
         <br>
         <label for="sistemas">Técnico en Ingeniería de Sistemas Informáticos</label>

@@ -5,10 +5,10 @@ CREATE TABLE usuario (
 carnet INT NOT NULL,
 nombres VARCHAR (100) NOT NULL,
 apellidos VARCHAR (100) NOT NULL,
-direccion VARCHAR (100) NOT NULL,
+direccion VARCHAR (200) NOT NULL,
 contraseña VARCHAR (75) NOT NULL,
 tipo_usuario VARCHAR (50) NOT NULL,
-carrera VARCHAR (50) NOT NULL,
+carrera VARCHAR (100) NOT NULL,
 cantidad_reportes INT,
 PRIMARY KEY (carnet)
 );
@@ -68,7 +68,7 @@ idDanos INT NOT NULL AUTO_INCREMENT,
 idPrestamo_FK INT NOT NULL,
 FOREIGN KEY (idPrestamo_FK) REFERENCES prestamo (idPrestamo),
 fecha VARCHAR (100) NOT NULL,
-detalles VARCHAR (100) NOT NULL,
+detalles VARCHAR (300) NOT NULL,
 PRIMARY KEY (idDanos)
 );
 
@@ -77,12 +77,12 @@ idMantenimiento INT NOT NULL AUTO_INCREMENT,
 idActivo_FK2 INT NOT NULL,
 FOREIGN KEY (idActivo_FK2) REFERENCES inventario (idActivo),
 fecha VARCHAR (100) NOT NULL,
-detalles VARCHAR (100) NOT NULL,
+detalles VARCHAR (500) NOT NULL,
 carnet_FK3 INT NOT NULL,
 FOREIGN KEY (carnet_FK3) REFERENCES usuario (carnet),
-total VARCHAR (100) NOT NULL,
-justificacion VARCHAR (100) NOT NULL,
-tiempò VARCHAR (100) NOT NULL,
+total VARCHAR (100) NOT NULL, 
+justificacion VARCHAR (300) NOT NULL,
+tiempo VARCHAR (100) NOT NULL,
 proximo_mantenimiento VARCHAR (100) NOT NULL,
 calidad_nueva VARCHAR (100) NOT NULL,
 PRIMARY KEY (idMantenimiento)
@@ -102,5 +102,4 @@ numero_serie VARCHAR (100) NOT NULL,
 nueva_ubicacion VARCHAR (100) NOT NULL, 
 PRIMARY KEY (idRefacciones)
 );
-SELECT * FROM usuario
-INSERT INTO usuario (carnet,nombres,apellidos, direccion, contraseña, tipo_usuario, carrera, cantidad_reportes) VALUES (128820, 'Carlos', 'Pineda', 'Santa Ana', 'admin', 'administrador', 'Sistemas', 0);
+ SELECT * FROM usuario

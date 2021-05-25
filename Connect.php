@@ -24,16 +24,28 @@ class ClsConnection
 
     public function SQL_consulta($tabla, $campos)
     {
-        $sentencia = "select $campos from $tabla";
+        $sql = "select $campos from $tabla";
 
-        $respuesta = $this -> connect -> query($sentencia);
+        $respuesta = $this -> connect -> query($sql);
+        return $respuesta;
+    }
+    public function SQL_consultaGeneral($tabla, $campos, $condicion=null)
+    {
+        $condicionB = "";
+        if (!(is_null($condicion)))
+        {
+            $condicionB = "where $condicion";
+        }
+        $sql = "select $campos from $tabla $condicionB";
+
+        $respuesta = $this -> connect -> query($sql);
         return $respuesta;
     }
     public function SQL_consulta_condicional($tabla, $campos, $condicion)
     {
-        $sentencia = "select $campos from $tabla where $condicion";
+        $sql = "select $campos from $tabla where $condicion";
 
-        $respuesta = $this -> connect -> query($sentencia);
+        $respuesta = $this -> connect -> query($sql);
         return $respuesta;
     }
     public function SQL_insert($tabla, $campos, $datos)
@@ -41,8 +53,8 @@ class ClsConnection
         $campos_String = implode(",", $campos);
         $Nuevosdatos= "'".implode("','", $datos)."'";
 
-        $sentencia = "insert into $tabla ($campos_String) values ($Nuevosdatos)";
-        $respuesta = $this -> connect -> query($sentencia);
+        $sql = "insert into $tabla ($campos_String) values ($Nuevosdatos)";
+        $respuesta = $this -> connect -> query($sql);
         return $respuesta;
     }
 
