@@ -64,20 +64,20 @@ $objeto = new ClsConnection();
         $datos[]=0;
 
         $tabla = "usuario";
-        $consulta = $objeto -> SQL_consulta($tabla, "carnet");
+        $consulta = $objeto -> SQL_consulta_condicional($tabla, "carnet", "carnet = ".$datos[0]."");
 
-        while ($fila = $consulta -> fetch_assoc())
-        {
-            if ($datos[0] == $fila["carnet"])
+            
+
+            if (mysqli_num_rows($consulta) > 0)
             {
-                echo"<script>alert('Ya existe')</script>";
+                echo "<script>alert('Ya existe')</script>";
             }
-            else 
+            else
             {
                 $campos = array('carnet','nombres','apellidos', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes');
+
                 $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
             }
-        }
     }
     ?>
 </body>

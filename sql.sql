@@ -1,5 +1,5 @@
-CREATE DATABASE inventario;
-USE inventario;
+CREATE DATABASE inventario_proyecto;
+USE inventario_proyecto;
 
 CREATE TABLE usuario (
 carnet INT NOT NULL,
@@ -8,7 +8,7 @@ apellidos VARCHAR (100) NOT NULL,
 direccion VARCHAR (200) NOT NULL,
 contraseña VARCHAR (75) NOT NULL,
 tipo_usuario VARCHAR (50) NOT NULL,
-carrera VARCHAR (100) NOT NULL,
+carrera VARCHAR (500) NOT NULL,
 cantidad_reportes INT,
 PRIMARY KEY (carnet)
 );
@@ -103,3 +103,5 @@ nueva_ubicacion VARCHAR (100) NOT NULL,
 PRIMARY KEY (idRefacciones)
 );
  SELECT * FROM usuario
+ 
+ SELECT carnet FROM usuario WHERE carnet = '222222'
