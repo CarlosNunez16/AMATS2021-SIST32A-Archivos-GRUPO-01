@@ -27,7 +27,7 @@ $objeto = new ClsConnection();
         <input type="text" name="direccion" required>
         <br>
         <label for="clave">Contraseña:</label>
-        <input type="text" name="clave" required>
+        <input type="password" name="clave" required>
         <br>
         <label for="tipoUsuario">Tipo de usuario:</label>
         <select name="tipoUsuario" id="tipoUsuario" required>
@@ -36,16 +36,18 @@ $objeto = new ClsConnection();
         <option value="Estudiante">Estudiante</option>
         </select>
         <br>
-        <label for="sistemas">Técnico en Ingeniería de Sistemas Informáticos</label>
-        <input type="checkbox" name="carreras[]" value="sistemas" >
-        <label for="hardware">Técnico en Hardware Computacional</label>
-        <input type="checkbox" name="carreras[]" value="hardware" >
-        <label for="patrimonio">Técnico en Gestión Tecnológica del Patrimonio Cultural</label>
-        <input type="checkbox" name="carreras[]" value="patrimonio">
-        <label for="electrica">Técnico en Ingeniería Eléctrica</label>
-        <input type="checkbox" name="carreras[]" value="electrica">
+        <label for="Técnico en Ingeniería de Sistemas Informáticos">Técnico en Ingeniería de Sistemas Informáticos</label>
+        <input type="checkbox" name="carreras[]" value="Técnico en Ingeniería de Sistemas Informáticos" >
+        <label for="Técnico en Hardware Computacional">Técnico en Hardware Computacional</label>
+        <input type="checkbox" name="carreras[]" value="Técnico en Hardware Computacional" >
+        <label for="Técnico en Gestión Tecnológica del Patrimonio Cultural">Técnico en Gestión Tecnológica del Patrimonio Cultural</label>
+        <input type="checkbox" name="carreras[]" value="Técnico en Gestión Tecnológica del Patrimonio Cultural">
+        <label for="Técnico en Ingeniería Eléctrica">Técnico en Ingeniería Eléctrica</label>
+        <input type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica">
 
-        <input type="submit" name="enviar" value="enviar">
+        <input type="submit" name="enviar" value="Registrarme">
+
+        ¿Ya tienes cuenta? <a href="Login.php">Inicia sesión.</a>
     </form>
     <?php
     if (isset($_POST["enviar"])) 
@@ -54,7 +56,7 @@ $objeto = new ClsConnection();
         $datos[] = $_POST["nombres"];
         $datos[] = $_POST["apellidos"];
         $datos[] = $_POST["direccion"];
-        $datos[] = $_POST["clave"];
+        $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
         $datos[] = $_POST["tipoUsuario"];
         if (isset($_POST["carreras"])) 
         {
@@ -77,6 +79,12 @@ $objeto = new ClsConnection();
                 $campos = array('carnet','nombres','apellidos', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes');
 
                 $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
+                echo "<script>var resultado = window.confirm('¿Quieres iniciar sesión ahora?');
+                    if (resultado === true) {
+                        window.location='Login.php';
+                    } else { 
+                        window.alert('¡Gracias por registrarte!');
+                    }</script>";
             }
     }
     ?>

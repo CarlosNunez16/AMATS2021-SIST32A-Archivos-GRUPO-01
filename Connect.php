@@ -21,6 +21,22 @@ class ClsConnection
             echo $e -> errorMessage();
         }
     }
+    public function SQL_Encriptar_Desencriptar($accion, $string)
+    {
+        $metodo = "AES-256-CBC";
+        $palabraClave = "Te amo meci";
+        $iv = 'C9fBxl1EWtYTL1/M8jfstw=="';
+
+        $key = hash('sha256', $palabraClave);
+        $siv = substr(hash('sha256', $iv), 0,16);
+
+        if($accion=="encriptar")
+        {
+            $salida = openssl_encrypt($string, $metodo, $key, 0, $siv);
+            $salida=base64_encode($salida);
+        }
+        return $salida;
+    }
 
     public function SQL_consulta($tabla, $campos)
     {

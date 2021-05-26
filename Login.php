@@ -12,30 +12,24 @@ $objeto = new ClsConnection();
     <title>Login</title>
 </head>
 <body>
-    <h1>REGISTRO DE USUARIO.</h1>
+    <h1>LOGIN.</h1>
     <form method="post">
         <label for="carnet">Carnet:</label>
         <input type="text" name="carnet" required>
         <br>
         <label for="clave">Contraseña:</label>
-        <input type="text" name="clave" required>
-        <br>
-        <label for="tipoUsuario">Tipo de usuario:</label>
-        <select name="tipoUsuario" id="tipoUsuario" required>
-        <option value="Administrador">Administrador</option>
-        <option value="Empleado">Empleado</option>
-        <option value="Estudiante">Estudiante</option>
-        </select>
+        <input type="password" name="clave" required>
         <br>
 
-        <input type="submit" name="enviar" value="enviar">
+        <input type="submit" name="enviar" value="Iniciar sesión">
+
+        ¿No tienes cuenta? <a href="Registro.php">Registrate.</a>
     </form>
     <?php
     if (isset($_POST["enviar"])) 
     {
         $datos[] = $_POST["carnet"];
-        $datos[] = $_POST["clave"];
-        $datos[] = $_POST["tipoUsuario"];
+        $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
 
         $tabla = "usuario";
         $consulta = $objeto -> SQL_consultaGeneral($tabla, "*", "carnet = '$datos[0]' and contraseña = '$datos[1]'");
@@ -43,22 +37,25 @@ $objeto = new ClsConnection();
         if ($consulta -> num_rows > 0)
         {
             $fila = $consulta -> fetch_assoc(); 
-            if ($fila["tipo_usuario"] == "admin")
+            if ($fila["tipo_usuario"] == "Administrador")
             {
-                header("location:Registro.php");
+                header("location:Administrador");
+                $_SESSION["Administrador"]= $fila["carnet"];
             }
-            elseif ($fila["tipo_usuario"] == "estudiante")
+            elseif ($fila["tipo_usuario"] == "Estudiante")
             {
-                header("location: ");
+                header("location:Empleado_Estudiante");
+                $_SESSION["Estudiante"]= $fila["carnet"];
             }
-            elseif ($fila["tipo_usuario"] == "empleado")
+            elseif ($fila["tipo_usuario"] == "Empleado")
             {
-                header("location: ");
+                header("location:Empleado_Estudiante");
+                $_SESSION["Empleado"]= $fila["carnet"];
             }
         }
         else 
         {
-            echo"<script>alert('Datos incorrectos.')</script>";
+            echo"<script>alert('Usted no está registrado o sus datos son incorrectos.')</script>";
         }
     }
     ?>
