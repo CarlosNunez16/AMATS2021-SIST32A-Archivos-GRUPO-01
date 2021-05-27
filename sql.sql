@@ -102,6 +102,15 @@ numero_serie VARCHAR (100) NOT NULL,
 nueva_ubicacion VARCHAR (100) NOT NULL, 
 PRIMARY KEY (idRefacciones)
 );
- SELECT * FROM usuario
- 
- SELECT carnet FROM usuario WHERE carnet = '222222'
+ALTER TABLE usuario
+ADD correo VARCHAR (100) NOT NULL;
+
+SELECT * FROM usuario
+
+DELETE FROM usuario WHERE nombres = "car"
+INSERT INTO usuario (carnet,nombres,apellidos, direccion, contraseña, tipo_usuario, carrera, cantidad_reportes, correo) VALUES (1, 'car', 'nuñ', 'sa', 'adm', 'Administrador', 'sist', 6, 'carlos') 
+
+
+UPDATE usuario
+SET cantidad_reportes = 6
+WHERE cantidad_reportes = 4

@@ -1,6 +1,14 @@
 <?php
+@session_start();
+if (isset($_SESSION["Estudiante_Empleado"]))
+{
+    header("location:Empleado_Estudiante/Empleado_Estudiante.php");
+}
+elseif(isset($_SESSION["Administrador"]))
+{
+    header("location:Administrador/Administrador.php");
+}
 require_once("Connect.php");
-
 $objeto = new ClsConnection();
 ?>
 <!DOCTYPE html>
@@ -29,28 +37,61 @@ $objeto = new ClsConnection();
     if (isset($_POST["enviar"])) 
     {
         $datos[] = $_POST["carnet"];
-        $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
-
+        // $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
+        $datos[] = $_POST["clave"];
         $tabla = "usuario";
         $consulta = $objeto -> SQL_consultaGeneral($tabla, "*", "carnet = '$datos[0]' and contraseña = '$datos[1]'");
-
+        
         if ($consulta -> num_rows > 0)
         {
             $fila = $consulta -> fetch_assoc(); 
             if ($fila["tipo_usuario"] == "Administrador")
             {
-                header("location:Administrador");
-                $_SESSION["Administrador"]= $fila["carnet"];
+                if ($fila["cantidad_reportes"] > 5) 
+                {
+                    echo"<script>alert('Usted esta baneado.')</script>";
+                }
+                else 
+                {
+                    header("location:Administrador/Administrador.php");
+                    $datos[0]= $fila["carnet"];
+                    $datos[1]= $fila["nombres"];
+                    $datos[2]= $fila["apellidos"];
+                    $datos[3]= $fila["tipo_usuario"];
+                    $_SESSION["Administrador"]= $datos;
+                }
             }
             elseif ($fila["tipo_usuario"] == "Estudiante")
             {
-                header("location:Empleado_Estudiante");
-                $_SESSION["Estudiante"]= $fila["carnet"];
+                if ($fila["cantidad_reportes"] > 5) 
+                {
+                    echo"<script>alert('Usted esta baneado.')</script>";
+                }
+                else 
+                {
+                    header("location:Empleado_Estudiante/Empleado_Estudiante.php");
+                    $datos[0]= $fila["carnet"];
+                    $datos[1]= $fila["nombres"];
+                    $datos[2]= $fila["apellidos"];
+                    $datos[3]= $fila["tipo_usuario"];
+                    $_SESSION["Estudiante_Empleado"]= $datos;
+                }
             }
             elseif ($fila["tipo_usuario"] == "Empleado")
             {
-                header("location:Empleado_Estudiante");
-                $_SESSION["Empleado"]= $fila["carnet"];
+                if ($fila["cantidad_reportes"] > 5) 
+                {
+                    echo"<script>alert('Usted esta baneado.')</script>";
+                }
+                else 
+                {
+                    header("location:Empleado_Estudiante/Empleado_Estudiante.php");
+                    $datos[0]= $fila["carnet"];
+                    $datos[1]= $fila["nombres"];
+                    $datos[2]= $fila["apellidos"];
+                    $datos[3]= $fila["tipo_usuario"];
+                    $_SESSION["Estudiante_Empleado"]= $datos;
+                }
             }
         }
         else 
@@ -58,6 +99,9 @@ $objeto = new ClsConnection();
             echo"<script>alert('Usted no está registrado o sus datos son incorrectos.')</script>";
         }
     }
+    echo "<pre>";
+    var_dump($_SESSION["Estudiante_Empleado"]);
+    echo "</pre>";
     ?>
 </body>
 </html>

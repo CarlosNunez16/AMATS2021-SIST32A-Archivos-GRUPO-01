@@ -1,4 +1,13 @@
 <?php
+@session_start();
+if (isset($_SESSION["Estudiante_Empleado"]))
+{
+    header("location:Empleado_Estudiante/Empleado_Estudiante.php");
+}
+elseif(isset($_SESSION["Administrador"]))
+{
+    header("location:Administrador/Administrador.php");
+}
 require_once("Connect.php");
 
 $objeto = new ClsConnection();
@@ -45,6 +54,9 @@ $objeto = new ClsConnection();
         <label for="Técnico en Ingeniería Eléctrica">Técnico en Ingeniería Eléctrica</label>
         <input type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica">
 
+        <label for="correo">Correo Institucional</label>
+        <input type="email" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
+
         <input type="submit" name="enviar" value="Registrarme">
 
         ¿Ya tienes cuenta? <a href="Login.php">Inicia sesión.</a>
@@ -64,6 +76,7 @@ $objeto = new ClsConnection();
             $datos[] = $carrera;
         }
         $datos[]=0;
+        $datos[]= $_POST["correo"];
 
         $tabla = "usuario";
         $consulta = $objeto -> SQL_consulta_condicional($tabla, "carnet", "carnet = ".$datos[0]."");
@@ -76,7 +89,7 @@ $objeto = new ClsConnection();
             }
             else
             {
-                $campos = array('carnet','nombres','apellidos', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes');
+                $campos = array('carnet','nombres','apellidos', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes', 'correo');
 
                 $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
                 echo "<script>var resultado = window.confirm('¿Quieres iniciar sesión ahora?');
