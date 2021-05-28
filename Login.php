@@ -37,9 +37,8 @@ $objeto = new ClsConnection();
     if (isset($_POST["enviar"])) 
     {
         $datos[] = $_POST["carnet"];
-        // $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
-        $datos[] = $_POST["clave"];
-        $tabla = "usuario";
+        $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
+        $tabla = "usuarios";
         $consulta = $objeto -> SQL_consultaGeneral($tabla, "*", "carnet = '$datos[0]' and contraseña = '$datos[1]'");
         
         if ($consulta -> num_rows > 0)

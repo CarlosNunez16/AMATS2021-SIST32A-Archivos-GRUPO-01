@@ -57,31 +57,30 @@ $objeto = new ClsConnection();
             <li><a href="Administrador.php">Inicio</a></li>
             <li><a href="">Usuarios</a>
                 <ul>
-                    <li><a href="Administrador.php?pagina=Prestamos.php">Consulta de usuarios</a></li>
-                    <li><a href="Administrador.php?pagina=Reportes.php">Baneados</a></li>
+                    <li><a href="Administrador.php?pagina=Usuarios.php">Consulta de usuarios</a></li>
+                    <li><a href="Administrador.php?pagina=Baneados.php">Baneados</a></li>
                 </ul>
             </li>
             <li><a href="">Préstamos</a>
                 <ul>
                     <li><a href="Administrador.php?pagina=Prestamos.php">Préstamos</a></li>
-                    <li><a href="Administrador.php?pagina=Reportes.php">Reportes de daños</a></li>
+                    <li><a href="Administrador.php?pagina=Damages.php">Reportes de daños</a></li>
                 </ul>
             </li>
             <li><a href="">Activos fijos</a>
                 <ul>
-                    <li><a href="Administrador.php?pagina=Prestamos.php">Inventario</a></li>
-                    <li><a href="Administrador.php?pagina=Reportes.php">Grupos</a></li>
-                    <li><a href="Administrador.php?pagina=Reportes.php">Subgrupos</a></li>
+                    <li><a href="Administrador.php?pagina=Inventario.php">Inventario</a></li>
+                    <li><a href="Administrador.php?pagina=Grupos.php">Grupos</a></li>
+                    <li><a href="Administrador.php?pagina=Subgrupos.php">Subgrupos</a></li>
                 </ul>
             </li>
             <li><a href="">Mantenimiento</a>
                 <ul>
-                    <li><a href="Administrador.php?pagina=Prestamos.php">Mantenimiento</a></li>
-                    <li><a href="Administrador.php?pagina=Reportes.php">Refacciones</a></li>
+                    <li><a href="Administrador.php?pagina=Mantenimiento.php">Mantenimiento</a></li>
+                    <li><a href="Administrador.php?pagina=Refacciones.php">Refacciones</a></li>
                 </ul>
             </li>
             <li><a href="Administrador.php?pagina=Cerrar.php">Cerrar sesión</a></li>
-            
         </ul>
     </nav>
     <section>

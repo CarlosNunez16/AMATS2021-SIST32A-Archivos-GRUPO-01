@@ -32,6 +32,9 @@ $objeto = new ClsConnection();
         <label for="carnet">Carnet:</label>
         <input type="text" name="carnet" required>
         <br>
+        <label for="correo">Correo Institucional</label>
+        <input type="email" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
+        <br>
         <label for="direccion">Dirección:</label>
         <input type="text" name="direccion" required>
         <br>
@@ -54,9 +57,6 @@ $objeto = new ClsConnection();
         <label for="Técnico en Ingeniería Eléctrica">Técnico en Ingeniería Eléctrica</label>
         <input type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica">
 
-        <label for="correo">Correo Institucional</label>
-        <input type="email" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
-
         <input type="submit" name="enviar" value="Registrarme">
 
         ¿Ya tienes cuenta? <a href="Login.php">Inicia sesión.</a>
@@ -67,6 +67,7 @@ $objeto = new ClsConnection();
         $datos[] = $_POST["carnet"];
         $datos[] = $_POST["nombres"];
         $datos[] = $_POST["apellidos"];
+        $datos[]= $_POST["correo"];
         $datos[] = $_POST["direccion"];
         $datos[] = $objeto -> SQL_Encriptar_Desencriptar("encriptar", $_POST["clave"]);
         $datos[] = $_POST["tipoUsuario"];
@@ -76,20 +77,18 @@ $objeto = new ClsConnection();
             $datos[] = $carrera;
         }
         $datos[]=0;
-        $datos[]= $_POST["correo"];
 
-        $tabla = "usuario";
+        $tabla = "usuarios";
         $consulta = $objeto -> SQL_consulta_condicional($tabla, "carnet", "carnet = ".$datos[0]."");
 
-            
 
-            if (mysqli_num_rows($consulta) > 0)
+            if (mysqli_num_rows($consulta) > 0) 
             {
                 echo "<script>alert('Ya existe')</script>";
             }
             else
             {
-                $campos = array('carnet','nombres','apellidos', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes', 'correo');
+                $campos = array('carnet','nombres','apellidos', 'correo', 'direccion', 'contraseña', 'tipo_usuario', 'carrera', 'cantidad_reportes');
 
                 $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
                 echo "<script>var resultado = window.confirm('¿Quieres iniciar sesión ahora?');

@@ -4,7 +4,7 @@ date_default_timezone_set('America/El_Salvador');
 define("SERVIDOR", "localhost");
 define("USUARIO", "root");
 define("CLAVE", "");
-define("DATABASE", "inventario_proyecto");
+define("DATABASE", "inventario_DataBase");
 
 class ClsConnection
 {
@@ -48,7 +48,7 @@ class ClsConnection
     public function SQL_consultaGeneral($tabla, $campos, $condicion=null)
     {
         $condicionB = "";
-        if (!(is_null($condicion)))
+        if (!(is_null($condicion))) 
         {
             $condicionB = "where $condicion";
         }
@@ -74,6 +74,30 @@ class ClsConnection
         return $respuesta;
     }
 
+    public function SQL_modificar($tabla, $nuevosValores, $condicion)
+    {
+        $nuevos = "";
+        foreach ($nuevosValores as $key => $item) {
+            if($item === end($nuevosValores))
+            {
+                $nuevos.= "$key = '$item'";
+            }
+            else
+            {
+                $nuevos.= "$key = '$item',";
+            }
+        }
+
+        $sql = "update $tabla set $nuevos where $condicion";
+        $respuesta = $this -> connect -> query($sql);
+        return $respuesta;
+    }
+    public function SQL_eliminar($tabla, $condicion)
+    {
+        $sql = "delete from $tabla where $condicion";
+        $respuesta = $this -> connect -> query($sql);
+        return $respuesta;
+    }
 }
 
 
