@@ -10,6 +10,7 @@ elseif(isset($_SESSION["Administrador"]))
 }
 require_once("Connect.php");
 
+
 $objeto = new ClsConnection();
 ?>
 <!DOCTYPE html>
@@ -19,49 +20,114 @@ $objeto = new ClsConnection();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
 </head>
 <body>
-    <h1>REGISTRO DE USUARIO.</h1>
-    <form method="post">
-        <label for="nombres">Nombres:</label>
-        <input type="text" name="nombres" required>
+<div class="container">
+<div class="row">
+<div class="col-md-4 ">
+   
+</div>
+
+<div class="col-md-4    float-left" > <!--justify-content-center -->
+<img src="images/logo.png" alt="">
+
+</div>
+<div class="col-md-4 ">
+
+</div>
+</div>
+<!--Primer contenedor-->
+<form method="post">
+<div class="container">
+<div class="row">
+<div class="col-md-3 ">
+</div>
+    <!-- PRINCIPAL CNT-->
+ <div class="col-md-5 bg-ligth text-center border border-danger rounded-3">
+    <h1><p class="text-danger">REGISTRO DE USUARIO.</h1></p>
+        <label for="nombres"><p class="text-danger">Nombres:</label></p>
+        <input class="form-control" type="text" name="nombres" required>
+
+          
         <br>
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" name="apellidos" required>
+        <label for="apellidos"><p class="text-danger">Apellidos:</label></p>
+        <input class="form-control" type="text" name="apellidos" required>
         <br>
-        <label for="carnet">Carnet:</label>
-        <input type="text" name="carnet" required>
+        <label for="carnet"><p class="text-danger">Carnet:</label></p>
+        <input class="form-control"  type="number" min="0" name="carnet" required>
         <br>
-        <label for="correo">Correo Institucional</label>
-        <input type="email" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
+        <label for="correo"><p class="text-danger">Correo Institucional:</label></p>
+        <input class="form-control" type="email" class="form-control" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
         <br>
-        <label for="direccion">Dirección:</label>
-        <input type="text" name="direccion" required>
+        <label for="direccion"><p class="text-danger">Dirección:</label></p>
+        <input class="form-control" type="text" name="direccion" required>
         <br>
-        <label for="clave">Contraseña:</label>
-        <input type="password" name="clave" required>
+        <label for="clave>"><p class="text-danger">Contraseña:</label></p>
+        <input type="password" class="form-control" name="clave" required>
         <br>
-        <label for="tipoUsuario">Tipo de usuario:</label>
-        <select name="tipoUsuario" id="tipoUsuario" required>
+        <div class="form-group">
+        <label for="tipoUsuario"><p class="text-danger">Tipo de usuario:</label>
+    <br>
+    <br>
+        <select name="tipoUsuario" class="form-control" id="tipoUsuario" required>
+        
         <option value="Administrador">Administrador</option>
         <option value="Empleado">Empleado</option>
         <option value="Estudiante">Estudiante</option>
-        </select>
+        </select></p>
+</div>
+<br>
+        <label for="carreras"><p class="text-danger">Carrera/s:</label>
+<br>
+<div class="form-check text-start">
+<input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Ingeniería de Sistemas Informáticos">
+    <label class="form-check-label" for="Técnico en Ingeniería de Sistemas Informáticos"><p class="text-dark">Técnico en Ingeniería de Sistemas Informáticos</p>
+</div>
+    <br>
+
+<div class="form-check text-start">
+    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Hardware Computacional">
+    <label class="form-check-label" for="Técnico en Hardware Computacional"><p class="text-dark">Técnico en Hardware Computacional</p>
+</div>
         <br>
-        <label for="Técnico en Ingeniería de Sistemas Informáticos">Técnico en Ingeniería de Sistemas Informáticos</label>
-        <input type="checkbox" name="carreras[]" value="Técnico en Ingeniería de Sistemas Informáticos" >
-        <label for="Técnico en Hardware Computacional">Técnico en Hardware Computacional</label>
-        <input type="checkbox" name="carreras[]" value="Técnico en Hardware Computacional" >
-        <label for="Técnico en Gestión Tecnológica del Patrimonio Cultural">Técnico en Gestión Tecnológica del Patrimonio Cultural</label>
-        <input type="checkbox" name="carreras[]" value="Técnico en Gestión Tecnológica del Patrimonio Cultural">
-        <label for="Técnico en Ingeniería Eléctrica">Técnico en Ingeniería Eléctrica</label>
-        <input type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica">
+        
 
-        <input type="submit" name="enviar" value="Registrarme">
+        <div class="form-check text-start">
+    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Gestión Tecnológica del Patrimonio Cultural" >
+    <label class="form-check-label" for="Técnico en Gestión Tecnológica del Patrimonio Cultural"><p class="text-dark">Téc. en Gestión Tecnológica del Patrimonio Cultural</p>
+    </div>
+<br>
+        <div class="form-check  text-start">
+    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica" >
+    <label class="form-check-label" for="Técnico en Ingeniería Eléctrica"><p class="text-dark">Técnico en Ingeniería Eléctrica</p>
+</div>
+     <br>
 
-        ¿Ya tienes cuenta? <a href="Login.php">Inicia sesión.</a>
-    </form>
+
+        <input class="btn btn-primary" type="submit" name="enviar" value="Registrarme">
+        <br>
+        <br>
+        <p class="text-dark"> ¿Ya tienes cuenta? <a href="Login.php">Inicia sesión.</a></p>
+
+        </form>
+    </div>
+
+
+    <!--Tercer contenedor--> 
+
+    <div class="col-md-3 ">
+</div>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <?php
+    
+
     if (isset($_POST["enviar"])) 
     {
         $datos[] = $_POST["carnet"];
