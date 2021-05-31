@@ -84,16 +84,16 @@ $objeto = new ClsConnection();
         </ul>
     </nav>
     <section>
-    <?php
-        if(isset($_GET["pagina"]))
-        {
-            include ($_GET["pagina"]);
-        }
-        else 
-        {
-            
-        }
-    ?>
+        <?php
+            if(isset($_GET["pagina"]))
+            {
+                include ($_GET["pagina"]);
+            }
+            else 
+            {
+                
+            }
+        ?>
     </section>
     <footer>
         <p>ESCUELA ESPECIALIZADA EN INGENIERÍA ITCA-FEPADE, TODOS LOS DERECHOS RESERVADOS.</p>
