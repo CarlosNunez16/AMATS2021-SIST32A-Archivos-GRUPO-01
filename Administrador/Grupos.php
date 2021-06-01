@@ -36,43 +36,95 @@ if (isset($_POST['enviar']))
 }
 ?>
 
-<table border="1">
-	<form method="post">
-	<tr>
-		<th></th>
-		<th>ID</th>
-		<th>Nombre</th>
-		<th>Descripción</th>
-		<th>Acción</th>
-	</tr>
-	<?php
-		$tabla = "grupos";
-		$consulta = $objeto -> SQL_consulta($tabla, "*");
-		while ($fila = $consulta -> fetch_assoc())
-		{
-		echo "<tr>
-				<td><input type='checkbox' name='seleccionados[]' value='$fila[idGrupo]'></td>
-				<td>$fila[idGrupo]</td>
-				<td>$fila[nombre]</td>
-				<td>$fila[descripcion]</td>
-				<td><a href='Administrador.php?pagina=Modificar/Edit_Grupos.php&grupo=$fila[idGrupo]'>Modificar</a></td>
-			</tr>";
-		}
-	?>
-	<tr>
-		<td colspan="5"><input type="submit" name="eliminar" value="Eliminar"></td>
-	</tr>
-</form>
-</table>
-<?php
-if(isset($_POST["eliminar"]))
-{
-	$seleccionados = $_POST["seleccionados"];
+<form method="post">
+	<label for="nombre">Buscar por nombre.</label>
+	<input type="text" name="nombre" required>
 
-	foreach($seleccionados as $idGrupos)
-	{
-		$rs = $objeto -> SQL_eliminar("grupos", "idGrupo = $idGrupos");
-        echo "<script>alert('GRUPO ELIMINADO');window.location='?pagina=Grupos.php';</script>";
-	}
+	<input type="submit" name="buscar"  value="Buscar">
+</form>
+
+<?php
+if(isset($_POST["buscar"]))
+{
+	$nombre = $_POST["nombre"];
+	echo "<table border='1'>
+		<form method='post'>
+		<tr>
+			<th></th>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Descripción</th>
+			<th>Acción</th>
+		</tr>";
+			$tabla = 'grupos';
+			$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", "nombre like '%$nombre%'");
+			while ($fila = $consulta -> fetch_assoc())
+			{
+			echo "<tr>
+					<td><input type='checkbox' name='seleccionados[]' value='$fila[idGrupo]'></td>
+					<td>$fila[idGrupo]</td>
+					<td>$fila[nombre]</td>
+					<td>$fila[descripcion]</td>
+					<td><a href='Administrador.php?pagina=Modificar/Edit_Grupos.php&grupo=$fila[idGrupo]'>Modificar</a></td>
+				</tr>";
+			}
+		?>
+		<tr>
+			<td colspan="4"><input type="submit" name="eliminar" value="Eliminar"></td>
+			<td><a href='Administrador.php?pagina=Grupos.php'>Ver todos</a></td>
+		</tr>
+		</form>
+		</table>
+		<?php
+		if(isset($_POST["eliminar"]))
+		{
+			$seleccionados = $_POST["seleccionados"];
+
+			foreach($seleccionados as $idGrupos)
+			{
+				$rs = $objeto -> SQL_eliminar("grupos", "idGrupo = $idGrupos");
+				echo "<script>alert('GRUPO ELIMINADO');window.location='?pagina=Grupos.php';</script>";
+			}
+		}
 }
+else{
+		echo "<table border='1'>
+		<form method='post'>
+		<tr>
+			<th></th>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Descripción</th>
+			<th>Acción</th>
+		</tr>";
+			$tabla = 'grupos';
+			$consulta = $objeto -> SQL_consulta($tabla, "*");
+			while ($fila = $consulta -> fetch_assoc())
+			{
+			echo "<tr>
+					<td><input type='checkbox' name='seleccionados[]' value='$fila[idGrupo]'></td>
+					<td>$fila[idGrupo]</td>
+					<td>$fila[nombre]</td>
+					<td>$fila[descripcion]</td>
+					<td><a href='Administrador.php?pagina=Modificar/Edit_Grupos.php&grupo=$fila[idGrupo]'>Modificar</a></td>
+				</tr>";
+			}
+		?>
+		<tr>
+			<td colspan="5"><input type="submit" name="eliminar" value="Eliminar"></td>
+		</tr>
+		</form>
+		</table>
+		<?php
+		if(isset($_POST["eliminar"]))
+		{
+			$seleccionados = $_POST["seleccionados"];
+
+			foreach($seleccionados as $idGrupos)
+			{
+				$rs = $objeto -> SQL_eliminar("grupos", "idGrupo = $idGrupos");
+				echo "<script>alert('GRUPO ELIMINADO');window.location='?pagina=Grupos.php';</script>";
+			}
+		}
+	}
 ?>

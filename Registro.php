@@ -4,7 +4,7 @@
         <div class="col-md-4 ">
         </div>
     <div class="col-md-4    float-left" > <!--justify-content-center -->
-        <img src="images/logo.png" alt="">
+        
     </div>
     <div class="col-md-4 ">
     </div>
@@ -114,7 +114,7 @@ if (isset($_POST["enviar"]))
             $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
             echo "<script>var resultado = window.confirm('¿Quieres iniciar sesión ahora?');
                 if (resultado === true) {
-                    window.location='Login.php';
+                    window.location='index.php';
                 } else { 
                     window.alert('¡Gracias por registrarte!');
                 }</script>";

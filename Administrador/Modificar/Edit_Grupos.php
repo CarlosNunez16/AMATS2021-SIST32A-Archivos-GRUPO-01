@@ -9,7 +9,7 @@ $objeto = new ClsConnection();
 
 		$condicion = "idGrupo = ".$_GET["grupo"]."";
 		$rs = $objeto -> SQL_modificar("grupos", $datos, $condicion);
-		echo "<script>alert('GRUPO EDITADO'); window.location='?pagina=grupos.php';</script>";
+		echo "<script>alert('GRUPO EDITADO'); window.location='?pagina=Grupos.php';</script>";
 	}
 	$tabla = "grupos";
 	$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", "idGrupo = ".$_GET["grupo"]."");

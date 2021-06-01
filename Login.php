@@ -4,7 +4,7 @@
         <div class="col-md-4 ">
         </div>
         <div class="col-md-4    float-left" > <!--justify-content-center -->
-            <img src="images/logo.png" alt="">
+            
 
         <!-- </div> -->
         <div class="col-md-4 ">

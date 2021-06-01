@@ -99,13 +99,14 @@ carnet_FK4 INT NOT NULL,
 FOREIGN KEY (carnet_FK4) REFERENCES usuarios (carnet),
 nombre VARCHAR (100) NOT NULL,
 marca VARCHAR (100) NOT NULL,
-modelo VARCHAR (100) NOT NULL,
+modelo VARCHAR (100) NOT NULL,`inventario_database`
 color VARCHAR (100) NOT NULL,
 numero_serie VARCHAR (100) NOT NULL,
 nueva_ubicacion VARCHAR (100) NOT NULL, 
 PRIMARY KEY (idRefacciones)
 );
 
-SELECT * FROM grupos
+SELECT * FROM inventario 
 
-DELETE FROM grupos WHERE idGrupo = 1
+SELECT subgrupos.idSubgrupo, grupos.nombre AS nombre_SG, subgrupos.nombre, subgrupos.descripcion 
+FROM subgrupos INNER JOIN grupos ON (subgrupos.idGrupo_FK = grupos.idGrupo) WHERE subgrupos.nombre LIKE '%hp%'
