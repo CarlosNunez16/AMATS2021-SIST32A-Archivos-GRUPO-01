@@ -33,7 +33,7 @@
                     <img class="img-fluid rounded float-start" src="images/logo.png" alt="ITCA-FEPADE">
                     <!-- Option 1: Bootstrap Bundle with Popper -->
                     
-                    <h1 class="d-inline text-center fw-bold fs-4 text-danger">SISTEMA DE INVENTARIO DE ACTIVOS FIJOS - ITCA FEPADE SANTA ANA.</h1>
+                    <h1 class="d-inline text-center fw-bold fs-4 text-dark">SISTEMA DE INVENTARIO DE ACTIVOS FIJOS - ITCA FEPADE SANTA ANA.</h1>
                     <div class="d-inline col-1 text-center">
                         <form name="form_reloj">
                             <input class="border-0" type="text" name="reloj" size="10" disabled>
@@ -43,7 +43,7 @@
             </header>
         </div>
         <nav class="row">
-            <ul class="nav justify-content-end" style="background-color:#56070C">
+            <ul class="nav justify-content-end" style="background-color:#8B0000">
                 <li class="nav-item">
                     <a class="nav-link text-white" href="index.php?pagina=Login.php">INICIO</a>
                 </li>

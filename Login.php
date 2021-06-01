@@ -18,7 +18,7 @@
             </div>
     <!-- PRINCIPAL CNT-->
     <div class="col-md-5 bg-ligth text-center   border border-danger rounded-3 ">
-        <h1><p class="text-danger">LOGIN.</h1></p>
+    <h2 style="color:#8B0000">LOGIN.</h2>
         <form method="post">
             <br>
 

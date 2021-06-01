@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-4 ">
         </div>
-    <div class="col-md-4    float-left" > <!--justify-content-center -->
+    <div class="col-md-4 float-left" > <!--justify-content-center -->
         
     </div>
     <div class="col-md-4 ">
@@ -13,11 +13,11 @@
 <form method="post">
 <div class="container">
     <div class="row">
-        <div class="col-md-3 ">
+        <div class="col-md-3 "> 
         </div>
 <!-- PRINCIPAL CNT-->
 <div class="col-md-5 bg-ligth text-center border border-danger rounded-3">
-    <h1><p class="text-danger">REGISTRO DE USUARIO.</h1></p>
+    <h2 style="color:#8B0000">REGISTRO DE USUARIO.</h2>
     <label for="nombres"><p class="text-danger">Nombres:</label></p>
     <input class="form-control" type="text" name="nombres" required>
     <br>

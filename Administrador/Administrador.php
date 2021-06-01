@@ -4,7 +4,7 @@
     {
         header("location:../Login.php");
     }
-    require_once("../Connect.php");
+    require_once("../Connect.php"); 
     $objeto = new ClsConnection();
     ?>
 <!DOCTYPE html>
