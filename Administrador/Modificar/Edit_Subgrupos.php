@@ -16,30 +16,43 @@ $objeto = new ClsConnection();
 	$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", "idSubgrupo = ".$_GET["Subgrupo"]."");
 	while ($filas = $consulta -> fetch_assoc())
 	{
-        $subgrupo = "$filas[idSubgrupo]";
-		echo "<form method='post'>
-                <select name='grupos' required>";
-                        $tabla = 'grupos';
-                        $consultas = $objeto -> SQL_consulta($tabla, 'idGrupo, nombre');
-                        while ($fila = $consultas -> fetch_assoc())
-                        {
-                            $idGrupo = "$fila[idGrupo]";
-                            $subGrupo_FK = "$filas[idGrupo_FK]";
-
-                                echo "<Option value='$fila[idGrupo]'";
-                                if ($idGrupo == $subGrupo_FK)
+        echo"
+            <div class='row d-flex justify-content-center'>
+                <div class='col-5 m-3 s-1 p-3 border border-dark rounded-3 d-block' style='background-color:#F5F5F5'>
+                    <form class='row g-3 needs-validation' method='post'>
+                        <div class='col-md-6'>
+                            <label for='grupos' class='form-label'>Grupo:</label>
+                            <select name='grupos' class='form-control' required>";
+                                $tabla = 'grupos';
+                                $consultas = $objeto -> SQL_consulta($tabla, 'idGrupo, nombre');
+                                while ($fila = $consultas -> fetch_assoc())
                                 {
-                                    echo "selected";
+                                    $idGrupo = "$fila[idGrupo]";
+                                    $subGrupo_FK = "$filas[idGrupo_FK]";
+        
+                                        echo "<Option value='$fila[idGrupo]'";
+                                        if ($idGrupo == $subGrupo_FK)
+                                        {
+                                            echo "selected";
+                                        }
+                                        echo ">$fila[nombre]</Option>";
                                 }
-                                echo ">$fila[nombre]</Option>";
-                        }
-                echo"</select>
-                <label for='nombre'>Nombre: </label>
-                <input type='text' name='nombre' value='$filas[nombre]' required>
-                <label for='descripcion'>Descripción: </label>
-                <input type='text' name='descripcion' value='$filas[descripcion]' required>
-
-                <input type='submit' name='Modificar' value='Modificar'>
-            </form> ";
+                        echo"</select>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label' for='nombre'>Nombre: </label>
+                            <input class='form-control' value='$filas[nombre]' type='text' name='nombre' required>
+                        </div>
+                        <div class='col-md-12'>
+                            <label class='form-label' for='descripcion'>Descripción: </label>
+                            <input class='form-control' value='$filas[descripcion]' type='text' name='descripcion' required>
+                        </div>
+                        <div class='col-12'>
+                            <input class='btn btn-success' type='submit' name='Modificar' value='Modificar'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        ";
 	}
 ?>

@@ -22,3 +22,9 @@ function mueveReloj(){
 
     setTimeout('mueveReloj()',1000)
 }
+function abreSitio()
+{ 
+    var URL = "http://localhost/PROYECTO/AMATS2021-SIST32A-Archivos-GRUPO-01/Administrador/Administrador.php";
+    var web = document.form1.opcion.options[document.form1.opcion.selectedIndex].value;
+    window.open(URL+web, '_self', '');
+}

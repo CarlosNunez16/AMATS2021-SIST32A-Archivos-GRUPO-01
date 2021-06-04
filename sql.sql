@@ -1,5 +1,5 @@
-CREATE DATABASE inventario_DataBase;
-USE inventario_DataBase;
+CREATE DATABASE inventario;
+USE inventario;
 
 CREATE TABLE usuarios (
 carnet INT NOT NULL,
@@ -9,7 +9,7 @@ correo VARCHAR (100) NOT NULL,
 direccion VARCHAR (200) NOT NULL,
 contraseña VARCHAR (75) NOT NULL,
 tipo_usuario VARCHAR (50) NOT NULL,
-carrera VARCHAR (500) NOT NULL,
+carrera VARCHAR (500),
 cantidad_reportes INT,
 PRIMARY KEY (carnet)
 );
@@ -58,16 +58,13 @@ FOREIGN KEY (idActivo_FK) REFERENCES inventario (idActivo),
 fecha_prestamo VARCHAR (100) NOT NULL,
 hora_pretamo VARCHAR (100) NOT NULL,
 fecha_entrega VARCHAR (100) NOT NULL,
-hora_entrega VARCHAR (100) NOT NULL,
 estado VARCHAR (100) NOT NULL,
-calidad_entrega VARCHAR (100) NOT NULL,
+calidad_entrega VARCHAR (100),
 PRIMARY KEY (idPrestamo)
 );
 
 CREATE TABLE reportes (
 idDanos INT NOT NULL AUTO_INCREMENT,
-carnet_FK5 INT NOT NULL,
-FOREIGN KEY (carnet_FK5) REFERENCES usuarios (carnet),
 idPrestamo_FK INT NOT NULL,
 FOREIGN KEY (idPrestamo_FK) REFERENCES prestamo (idPrestamo),
 fecha VARCHAR (100) NOT NULL,
@@ -99,14 +96,14 @@ carnet_FK4 INT NOT NULL,
 FOREIGN KEY (carnet_FK4) REFERENCES usuarios (carnet),
 nombre VARCHAR (100) NOT NULL,
 marca VARCHAR (100) NOT NULL,
-modelo VARCHAR (100) NOT NULL,`inventario_database`
+modelo VARCHAR (100) NOT NULL,
 color VARCHAR (100) NOT NULL,
 numero_serie VARCHAR (100) NOT NULL,
 nueva_ubicacion VARCHAR (100) NOT NULL, 
 PRIMARY KEY (idRefacciones)
 );
 
-SELECT * FROM inventario 
+DELETE FROM inventario
 
-SELECT subgrupos.idSubgrupo, grupos.nombre AS nombre_SG, subgrupos.nombre, subgrupos.descripcion 
-FROM subgrupos INNER JOIN grupos ON (subgrupos.idGrupo_FK = grupos.idGrupo) WHERE subgrupos.nombre LIKE '%hp%'
+SELECT idPrestamo, usuarios.carnet AS Carnet,usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, inventario.nombre AS Nombre_Ac, inventario.numero_serie AS Serie_Ac, fecha_prestamo, hora_pretamo, fecha_entrega, estado, calidad_entrega
+FROM prestamo INNER JOIN usuarios ON (prestamo.carnet_FK2 = usuarios.carnet) INNER JOIN inventario ON (prestamo.idActivo_FK = inventario.IdActivo) WHERE carnet = 128821

@@ -22,11 +22,11 @@
         <form method="post">
             <br>
 
-            <label for="carnet"><p class="text-danger">Carnet:</label></p>
+            <label for="carnet"><p style="color:#8B0000">Carnet:</label></p>
             <input class="form-control"  type="number" min="0" name="carnet" required>
             <br>
         
-            <label for="clave>"><p class="text-danger">Contraseña:</label></p>
+            <label for="clave>"><p style="color:#8B0000">Contraseña:</label></p>
             <input type="password" class="form-control" name="clave" required>
             <br>
         
@@ -65,7 +65,7 @@ if (isset($_POST["enviar"]))
             }
             else 
             {
-                header("location:Administrador/Administrador.php");
+                header("location:Administrador/Administrador.php?pagina=Inventario.php&opcion=all");
                 $datos[0]= $fila["carnet"];
                 $datos[1]= $fila["nombres"];
                 $datos[2]= $fila["apellidos"];
@@ -81,7 +81,7 @@ if (isset($_POST["enviar"]))
             }
             else 
             {
-                header("location:Empleado_Estudiante/Empleado_Estudiante.php");
+                header("location:Empleado_Estudiante/Empleado_Estudiante.php?pagina=Prestamo.php&opcion=all");
                 $datos[0]= $fila["carnet"];
                 $datos[1]= $fila["nombres"];
                 $datos[2]= $fila["apellidos"];
@@ -97,7 +97,7 @@ if (isset($_POST["enviar"]))
             }
             else 
             {
-                header("location:Empleado_Estudiante/Empleado_Estudiante.php");
+                header("location:Empleado_Estudiante/Empleado_Estudiante.php?pagina=Prestamo.php&opcion=all");
                 $datos[0]= $fila["carnet"];
                 $datos[1]= $fila["nombres"];
                 $datos[2]= $fila["apellidos"];

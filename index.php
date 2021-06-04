@@ -54,7 +54,7 @@
         </nav>
         <section>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
-                    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
             <?php
                 if(isset($_GET["pagina"]))
                 {
@@ -67,7 +67,7 @@
             ?>
         </section>
         <br>
-        <footer class="row bg-light border-top border-danger">
+        <footer class="row border-top border-danger" style="background-color:#F5F5F5">
             <p class="text-center fs-9">ESCUELA ESPECIALIZADA EN INGENIERÍA ITCA-FEPADE, TODOS LOS DERECHOS RESERVADOS.<br>
             CARRETERA A SANTA TECLA KM. 11, LA LIBERTAD, EL SALVADOR C.A.<br>
             TEL. (503) 2132-7400</p>
