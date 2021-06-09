@@ -3,8 +3,10 @@
 @$objeto = new ClsConnection();
 ?>
 
+<h1 class="text-center m-3 fs-2">USUARIOS BANEADOS</h1>
 <div class="row d-flex justify-content-center">
 	<div class="col-5 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+		<h1 class="text-center fs-4">CONSULTA</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-9">
                 <?php
@@ -70,23 +72,23 @@ if(isset($_POST["buscar"]))
 						<tbody>";
 						if($_GET["opcion"] == "Carnet" || $_GET["opcion"] == "all")
 						{
-							$condicion = "carnet like '%$dato%'";
+							$condicion = "carnet like '%$dato%' and cantidad_reportes > 5";
 						}
 						elseif($_GET["opcion"] == "Nombres")
 						{
-							$condicion = "nombres like '%$dato%'";
+							$condicion = "nombres like '%$dato%' and cantidad_reportes > 5";
 						}
 						elseif($_GET["opcion"] == "Apellidos")
 						{
-							$condicion = "apellidos like '%$dato%'";
+							$condicion = "apellidos like '%$dato%' and cantidad_reportes > 5";
 						}
 						elseif($_GET["opcion"] == "Tipo")
 						{
-							$condicion = "tipo_usuario like '%$dato%'";
+							$condicion = "tipo_usuario like '%$dato%' and cantidad_reportes > 5";
 						}
 						elseif($_GET["opcion"] == "Carrera")
 						{
-							$condicion = "carrera like '%$dato%'";
+							$condicion = "carrera like '%$dato%' and cantidad_reportes > 5";
 						}
 								$tabla = 'usuarios';
 								$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", $condicion);
@@ -151,7 +153,7 @@ else
 						</thead>
 						<tbody>";
 								$tabla = 'usuarios';
-                                $condicion = " where cantidad_reportes = 5";
+                                $condicion = " where cantidad_reportes > 5";
 								$consulta = $objeto -> SQL_consulta($tabla.$condicion, "*");
 
 								if (mysqli_num_rows($consulta) < 1) 

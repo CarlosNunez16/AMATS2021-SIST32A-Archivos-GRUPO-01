@@ -17,8 +17,10 @@ while ($fila = $consulta -> fetch_assoc())
     }
 }
 ?>
+<h1 class="text-center m-3 fs-2">PRÉSTAMOS</h1>
 <div class="row d-flex justify-content-center">
 	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+        <h1 class="text-center fs-4">REGISTRO</h1>
 		<form class="row g-3 needs-validation" method="post">
             <div class="col-md-6">
                 <label for="activos" class="form-label">Activo fijo:</label>
@@ -54,13 +56,18 @@ while ($fila = $consulta -> fetch_assoc())
         $datos[] = "En préstamo";
         $datos[] = "Sin comprobar";
 
+        $tablaPres = "prestamo"; 
+        $consultaPres = $objeto -> SQL_consulta_condicional($tablaPres, "idActivo_FK", "idActivo_FK = $datos[1] AND estado = 'En préstamo' OR estado = 'En retraso'");
+        $tablaMant = "mantenimientos";
+        $consultaMant = $objeto -> SQL_consulta_condicional($tablaMant, "idActivo_FK2", "idActivo_FK2 = $datos[1] AND calidad_nueva='Sin revisar'");
 
-        $tabla = "inventario INNER JOIN prestamo ON (prestamo.idActivo_FK = inventario.IdActivo) INNER JOIN mantenimientos ON (inventario.idActivo=mantenimientos.idActivo_FK2)";
-        $consulta = $objeto -> SQL_consulta_condicional($tabla, "idActivo", "idActivo = $datos[1] AND estado = 'En préstamo' OR estado = 'En retraso' OR calidad_nueva='Sin revisar'");
-
-        if (mysqli_num_rows($consulta) > 0) 
+        if (mysqli_num_rows($consultaPres) > 0) 
         {
-            echo "<script>alert('El activo fijo ya está en préstamo o está en mantenimiento.')</script>";
+            echo "<script>alert('El activo fijo ya está en préstamo.')</script>";
+        }
+        elseif (mysqli_num_rows($consultaMant) > 0) 
+        {
+            echo "<script>alert('El activo fijo está en mantenimiento.')</script>";
         }
         else
         {
@@ -75,6 +82,7 @@ while ($fila = $consulta -> fetch_assoc())
 
 <div class="row d-flex justify-content-center">
 	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+        <h1 class="text-center fs-4">CONSULTA</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-6">
                 <?php
@@ -187,15 +195,8 @@ if(isset($_POST["buscar"]))
                             <td>$fila[fecha_entrega]</td>
                             <td>$fila[estado]</td>
                             <td>$fila[calidad_entrega]</td>
-                            <td><div class='d-flex justify-content-center'><input class='btn btn-success justify-content-center' type='submit' name='Entregar' value='Entregar' ".$_SESSION["BtnEntregar"]."></div></td>
+                            <td><div class='d-flex justify-content-center'><a class='btn btn-success justify-content-center ".$_SESSION["BtnEntregar"]."'href='Empleado_Estudiante.php?pagina=Modificar/Entrega_Prestamo.php&idPrestamo=$fila[idPrestamo]'>Entregar</a></div></td>
                             </tr>";
-                            if(isset($_POST["Entregar"]))
-                            {
-                                $datos["estado"] = "Entregado";
-                                $condicion = "idPrestamo=$fila[idPrestamo] and estado = 'En préstamo' or estado = 'No entregó'";
-                                $rs = $objeto -> SQL_modificar("prestamo", $datos, $condicion);
-                                echo "<script>alert('ENTREGADO'); window.location='?pagina=Prestamo.php&opcion=all';</script>";
-                            }
                         }
                     }
                     ?>
@@ -265,13 +266,6 @@ else
                                 <td>$fila[calidad_entrega]</td>
                                 <td><div class='d-flex justify-content-center'><a class='btn btn-success justify-content-center ".$_SESSION["BtnEntregar"]."'href='Empleado_Estudiante.php?pagina=Modificar/Entrega_Prestamo.php&idPrestamo=$fila[idPrestamo]'>Entregar</a></div></td>
                             </tr>";
-                            if(isset($_POST["Entregar"]))
-                            {
-                                $datos["estado"] = "Entregado";
-                                $condicion = "idPrestamo=$fila[idPrestamo] and estado = 'En préstamo' or estado = 'No entregó'";
-                                $rs = $objeto -> SQL_modificar("prestamo", $datos, $condicion);
-                                echo "<script>alert('ENTREGADO'); window.location='?pagina=Prestamo.php&opcion=all';</script>";
-                            }
                         }
                     }
                 

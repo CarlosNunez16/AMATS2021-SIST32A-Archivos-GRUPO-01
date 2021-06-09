@@ -1,5 +1,7 @@
+<h1 class="text-center m-3 fs-2">REPORTE DE DAÑOS</h1>
 <div class="row d-flex justify-content-center">
 	<div class="col-3 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+        <h1 class="text-center fs-4">CONSULTA</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-12">
                 <label class='form-label' for='dato'>Ingresar fecha:</label>
@@ -40,30 +42,58 @@ if(isset($_POST["buscar"]))
                     if (mysqli_num_rows($consulta) < 1) 
                     {
                         echo "<tr><td colspan='14' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
+                        $_SESSION["Btn_Eliminar"]="Disabled";
                     }                    
                     else
                     {
                         while ($fila = $consulta -> fetch_assoc()) 
                         {
                         echo "<tr>
+                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idPrestamo_FK]'></td>
                                 <th scope='row'>$fila[idDanos]</th>
                                 <td>$fila[idPrestamo_FK]</td>
                                 <td>$fila[fecha]</td>
                                 <td>$fila[detalles]</td>
                                 <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Reporte.php&idDanos=$fila[idDanos]'>Modificar</a></td>
                             </tr>";
+                            $_SESSION["Btn_Eliminar"]="Enabled";
                         }
                     }
                     ?>
                         <tr>
-                            <td colspan="4"><div class="d-flex justify-content-center"><a class="btn btn-info" href='Administrador.php?pagina=Reporte_daños.php'>Ver todos</a></div></td>
-                        </tr>
+                            <td colspan='5'><div class='d-flex justify-content-center'><input class='btn btn-danger justify-content-center' type='submit' name='eliminar' value='Eliminar' <?php echo $_SESSION["Btn_Eliminar"];?>></div></td>
+                            <td><div class="d-flex justify-content-center"><a class="btn btn-info" href='Administrador.php?pagina=Reporte_daños.php'>Ver todos</a></div></td>
+                        </tr> 
                 </tbody>
             </form>
             </table> 
         </div>
     </div>
         <?php
+        if(isset($_POST["eliminar"]))
+        {
+            $seleccionados = $_POST["seleccionados"];
+
+            foreach($seleccionados as $idPrestamo_FK)
+            {
+                $rs = $objeto -> SQL_eliminar("reportes", "idPrestamo_FK = $idPrestamo_FK");
+
+                $tabla = "prestamo INNER JOIN usuarios ON (prestamo.carnet_FK2 = usuarios.carnet)";
+	            $consulta = $objeto -> SQL_consulta_condicional($tabla, "carnet_FK2", "idPrestamo= ".$idPrestamo_FK."");
+                while ($fila = $consulta -> fetch_assoc())
+	            {
+                    $uno=1;
+                    $datosUser["cantidad_reportes"]= "cantidad_reportes-".$uno;
+                    $condicion = "carnet = $fila[carnet_FK2]";
+                    $reporte = $objeto -> SQL_modificarReporte("usuarios", $datosUser, $condicion);
+                }
+
+
+                echo "<script>alert('REPORTE ELIMINADO');window.location='?pagina=Reporte_daños.php';</script>";
+
+
+            }
+        }
 }
 else{
     echo "
@@ -77,7 +107,7 @@ else{
                         <th scope='col'>ID</th>
                         <th scope='col'>ID Préstamo</th>
                         <th scope='col'>Fecha</th>
-                        <th scope='col' colspan='2'>Detalles</th>
+                        <th scope='col'>Detalles</th>
                         <th scope='col'>Acción</th>
                     </tr>
                 </thead>
@@ -89,26 +119,56 @@ else{
                     
                     if (mysqli_num_rows($consulta) < 1) 
                     {
-                        echo "<tr><td colspan='14' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
+                        echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
+                        $_SESSION["Btn_Eliminar"]="Disabled";
                     }                    
                     else
                     {
                         while ($fila = $consulta -> fetch_assoc()) 
                         {
                         echo "<tr>
+                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idPrestamo_FK]'></td>
                                 <th scope='row'>$fila[idDanos]</th>
                                 <td>$fila[idPrestamo_FK]</td>
                                 <td>$fila[fecha]</td>
-                                <td colspan='2'>$fila[detalles]</td>
+                                <td>$fila[detalles]</td>
                                 <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Reporte.php&idDanos=$fila[idDanos]'>Modificar</a></td>
                             </tr>";
+                            $_SESSION["Btn_Eliminar"]="Enabled";
                         }
                     }
                         
-                    echo"</tbody>
+                    echo"<tr>
+                            <td colspan='6'><div class='d-flex justify-content-center'><input class='btn btn-danger justify-content-center' type='submit' name='eliminar' value='Eliminar' ".$_SESSION["Btn_Eliminar"]."></div></td>
+                        </tr>
+                    </tbody>
                 </form>
                 </table> 
             </div>
         </div>";
+        if(isset($_POST["eliminar"]))
+        {
+            $seleccionados = $_POST["seleccionados"];
+
+            foreach($seleccionados as $idPrestamo_FK)
+            {
+                $rs = $objeto -> SQL_eliminar("reportes", "idPrestamo_FK = $idPrestamo_FK");
+
+                $tabla = "prestamo INNER JOIN usuarios ON (prestamo.carnet_FK2 = usuarios.carnet)";
+	            $consulta = $objeto -> SQL_consulta_condicional($tabla, "carnet_FK2", "idPrestamo= ".$idPrestamo_FK."");
+                while ($fila = $consulta -> fetch_assoc())
+	            {
+                    $uno=1;
+                    $datosUser["cantidad_reportes"]= "cantidad_reportes-".$uno;
+                    $condicion = "carnet = $fila[carnet_FK2]";
+                    $reporte = $objeto -> SQL_modificarReporte("usuarios", $datosUser, $condicion);
+                }
+
+
+                echo "<script>alert('REPORTE ELIMINADO');window.location='?pagina=Reporte_daños.php';</script>";
+
+
+            }
+        }
     }
 ?>

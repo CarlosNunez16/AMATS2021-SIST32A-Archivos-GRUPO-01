@@ -3,8 +3,10 @@
 @$objeto = new ClsConnection();
 ?>
 
+<h1 class="text-center m-3 fs-2">USUARIOS</h1>
 <div class="row d-flex justify-content-center">
 	<div class="col-5 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+		<h1 class="text-center fs-4">CONSULTA DE USUARIOS</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-9">
                 <?php

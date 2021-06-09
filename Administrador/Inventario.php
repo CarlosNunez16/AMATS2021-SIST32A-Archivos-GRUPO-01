@@ -2,9 +2,10 @@
 @session_start();
 $objeto = new ClsConnection();
 ?>
-
+<h1 class="text-center m-3 fs-2">INVENTARIO</h1>
 <div class="row d-flex justify-content-center">
 	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+        <h1 class="text-center fs-4">FORMULARIO DE REGISTRO</h1>
 		<form class="row g-3 needs-validation" method="post">
             <div class="col-md-6">
                 <label for="grupos" class="form-label">Grupo:</label>
@@ -120,6 +121,7 @@ if (isset($_POST['enviar']))
 
 <div class="row d-flex justify-content-center">
 	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+        <h1 class="text-center fs-4">CONSULTA DEL INVENTARIO</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-6">
                 <?php
@@ -256,7 +258,7 @@ if(isset($_POST["buscar"]))
                         while ($fila = $consulta -> fetch_assoc()) 
                         {
                         echo "<tr>
-                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idActivo]' required></td>
+                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idActivo]'></td>
                                 <th scope='row'>$fila[idActivo]</th>
                                 <td>$fila[nombre_G]</td>
                                 <td>$fila[nombre_SG]</td>
@@ -336,7 +338,7 @@ else{
                         while ($fila = $consulta -> fetch_assoc())
                         {
                         echo "<tr>
-                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idActivo]' required></td>
+                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idActivo]'></td>
                                 <th scope='row'>$fila[idActivo]</th>
                                 <td>$fila[nombre_G]</td>
                                 <td>$fila[nombre_SG]</td>
@@ -370,25 +372,25 @@ else{
 
             foreach($seleccionados as $idActivo)
             {
-                // $tablaGrupos = "inventario INNER JOIN grupos ON (inventario.idGrupo_FK2 = grupos.idGrupo) WHERE idGrupo=$idGrupo";
-				// $camposGrupos = "idGrupo_FK2";
-				// $tablaSubgrupos ="subgrupos INNER JOIN grupos ON (subgrupos.idGrupo_FK = grupos.idGrupo) WHERE idGrupo=$idGrupo";
-				// $camposSubgrupos="idGrupo_FK";
-                // $tablaUsuarios ="subgrupos INNER JOIN grupos ON (subgrupos.idGrupo_FK = grupos.idGrupo) WHERE idGrupo=$idGrupo";
-				// $camposUsuarios="idGrupo_FK";
-				// $consultaInv = $objeto -> SQL_consulta($tablaInventario, $camposInventario);
-				// $consultaSub = $objeto -> SQL_consulta($tablaSubgrupos, $camposSubgrupos);
-				// if (mysqli_num_rows($consultaInv) > 0 || mysqli_num_rows($consultaSub) > 0) 
-				// {
-				// 	echo "<script>alert('El grupo puede estar en las tablas inventario o subgrupos, eliminalo primero de dichas tablas.')</script>";
-				// }
-				// else
-				// {
-				// 	$rs = $objeto -> SQL_eliminar("grupos", "idGrupo = $idGrupo");
-				// 	echo "<script>alert('GRUPO ELIMINADO');window.location='?pagina=Grupos.php';</script>";
-				// }
-                $rs = $objeto -> SQL_eliminar("inventario", "idActivo = $idActivo");
-                echo "<script>alert('SUBGRUPO/S ELIMINADO');window.location='?pagina=Inventario.php';</script>";
+                $tablaGrupos = "inventario INNER JOIN grupos ON (inventario.idGrupo_FK2=grupos.idGrupo) WHERE idActivo=$idActivo";
+				$camposGrupos = "idGrupo_FK2";
+				$tablaSubgrupos ="inventario INNER JOIN subgrupos ON (inventario.idSubgrupo_FK = subgrupos.idSubgrupo) WHERE idGrupo=$idGrupo";
+				$camposSubgrupos="idGrupo_FK";
+                $tablaUsuarios ="subgrupos INNER JOIN grupos ON (subgrupos.idGrupo_FK = grupos.idGrupo) WHERE idGrupo=$idGrupo";
+				$camposUsuarios="idGrupo_FK";
+				$consultaGrup = $objeto -> SQL_consulta($tablaGrupos, $camposGrupos);
+				$consultaSub = $objeto -> SQL_consulta($tablaSubgrupos, $camposSubgrupos);
+				if (mysqli_num_rows($consultaInv) > 0 || mysqli_num_rows($consultaSub) > 0) 
+				{
+					echo "<script>alert('El grupo puede estar en las tablas inventario o subgrupos, eliminalo primero de dichas tablas.')</script>";
+				}
+				else
+				{
+					$rs = $objeto -> SQL_eliminar("grupos", "idGrupo = $idGrupo");
+					echo "<script>alert('GRUPO ELIMINADO');window.location='?pagina=Grupos.php';</script>";
+				}
+                // $rs = $objeto -> SQL_eliminar("inventario", "idActivo = $idActivo");
+                // echo "<script>alert('ACTIVO FIJO ELIMINADO');window.location='?pagina=Inventario.php&opcion=all';</script>";
             }
         }
 	}

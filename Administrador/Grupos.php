@@ -2,8 +2,10 @@
 @session_start();
 $objeto = new ClsConnection(); 
 ?>
+<h1 class="text-center m-3 fs-2">GRUPOS</h1>
 <div class="row d-flex justify-content-center">
 	<div class="col-5 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+		<h1 class="text-center fs-4">REGISTRO</h1>
 		<form class="row g-3 needs-validation" method="post">
 			<div class="col-md-6">
 				<label for="nombre" class="form-label">Nombre</label>
@@ -43,6 +45,7 @@ if (isset($_POST['enviar']))
 ?>
 <div class="row d-flex justify-content-center">
 	<div class="col-5 d-block m-3 p-3 border border-dark rounded-3" style="background-color:#F5F5F5">
+		<h1 class="text-center fs-4">CONSULTA</h1>
 		<form class="row g-3 needs-validation" method="post">
 			<div class="col-md-12">
 				<label for="nombre" class="form-label">Buscar por nombre:</label>
@@ -89,7 +92,7 @@ if(isset($_POST["buscar"]))
 						while ($fila = $consulta -> fetch_assoc())
 						{
 						echo "<tr>
-								<td><input type='checkbox' name='seleccionados[]' value='$fila[idGrupo]' required></td>
+								<td><input type='checkbox' name='seleccionados[]' value='$fila[idGrupo]'></td>
 								<th scope='row'>$fila[idGrupo]</th>
 								<td>$fila[nombre]</td>
 								<td>$fila[descripcion]</td>

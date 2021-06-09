@@ -75,16 +75,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-white active" aria-current="page" href="Empleado_Estudiante.php?pagina=MyDamages.php">Mis reportes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white active" aria-current="page" href="Empleado_Estudiante.php?pagina=Mantenimiento.php&opcion=all">Mantenimiento</a>
+                        </li>
                 </div>
                 <div class="col-2 d-inline collapse">
                     <ul class="nav justify-content-end">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="../Administrador/userIcon.gif" alt="User" width="25" height="25">&nbsp <?php echo $_SESSION["Estudiante_Empleado"][0];?></a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Cerrar.php">Cerrar sesión</a></li>
-                                    <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Modificar/Password.php">Cambiar contraseña</a></li>
-                                </ul>
-                            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="../Administrador/userIcon.gif" alt="User" width="25" height="25">&nbsp <?php echo $_SESSION["Estudiante_Empleado"][0];?></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Modificar/Perfil.php">Perfil</a></li> 
+                                <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Modificar/Password.php">Cambiar contraseña</a></li>
+                                <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Cerrar.php">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
                     </ul>  
                 </div>
             </ul>

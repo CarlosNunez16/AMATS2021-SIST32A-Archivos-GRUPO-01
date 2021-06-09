@@ -27,11 +27,13 @@
 <div class="row d-flex justify-content-center">
     <div class="col-4 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
         <form class="row g-3 needs-validation" method="post">
+            <div class="col-md-12">
                 <label class='form-label' for='refacciones'>Listado de refacciones (opcional): </label>
                 <div class='form-floating'>
                     <textarea class='form-control' name='refacciones'></textarea>
                     <label for='floatingTextarea'>Escriba aquí</label>
                 </div>
+            </div>
             <div class="col-md-12">
                 <label for="gasto" class="form-label">Gasto total ($):</label>
                 <input class="form-control" type="number" placeholder="$" step="0.01" name="gasto" required>

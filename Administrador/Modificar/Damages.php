@@ -56,13 +56,12 @@ $objeto = new ClsConnection();
   
             if($n > $m)
             {
-                $datoPres["calidad_entrega"] = $_POST["calidad"];
-                $datoAct["calidad"] = $_POST["calidad"]; 
-
+                $datoPres["calidad_entrega"] = $_POST["calidad"];  
                 $condicionPres = "idPrestamo = ".$_GET["Prestamo"]."";
                 $rsPres = $objeto -> SQL_modificar("prestamo", $datoPres, $condicionPres);
 
-                $condicionAct = "numero_serie = ".$_GET["Serie_Ac"]."";
+                $datoAct["calidad"] = $_POST["calidad"];
+                $condicionAct = "numero_serie like '".$_GET["Serie_Ac"]."'";
                 $rsAct = $objeto -> SQL_modificar("inventario", $datoAct, $condicionAct);
 
                 $tabla = "prestamo";

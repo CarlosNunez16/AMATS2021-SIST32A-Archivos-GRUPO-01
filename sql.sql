@@ -99,10 +99,8 @@ refacciones VARCHAR (500) NOT NULL,
 PRIMARY KEY (idRefacciones)
 );
 
-UPDATE prestamo SET fecha_entrega='2021-06-07' WHERE fecha_entrega LIKE '2021-06-08'
+SELECT * FROM inventario
 
-SELECT idDanos, idPrestamo_FK, fecha, detalles 
-FROM reportes INNER JOIN prestamo ON (reportes.idPrestamo_FK = prestamo.idPrestamo) WHERE carnet_FK2 = 128821
+SELECT idActivo_FK FROM inventario INNER JOIN prestamo ON (inventario.idActivo=prestamo.idActivo_FK) WHERE idActivo=2
 
-DELETE FROM prestamo 
 
