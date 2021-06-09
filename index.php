@@ -45,10 +45,10 @@
         <nav class="row">
             <ul class="nav justify-content-end" style="background-color:#8B0000">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index.php?pagina=Login.php">INICIO</a>
+                    <a class="nav-link text-white" href="https://apps.itca.edu.sv/portalestudiantil/index.php">Portal Estudiantil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index.php?pagina=Registro.php">REGISTRARME</a>
+                    <a class="nav-link text-white" href="https://www.itca.edu.sv/">Sitio Web ITCA</a>
                 </li>
             </ul>
         </nav>

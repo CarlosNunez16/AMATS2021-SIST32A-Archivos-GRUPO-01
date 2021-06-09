@@ -4,7 +4,7 @@ date_default_timezone_set('America/El_Salvador');
 define("SERVIDOR", "localhost");
 define("USUARIO", "root");
 define("CLAVE", "");
-define("DATABASE", "inventario");
+define("DATABASE", "inventario_DB");
 
 class ClsConnection
 {
@@ -85,6 +85,24 @@ class ClsConnection
             else
             {
                 $nuevos.= "$key = '$item',";
+            }
+        }
+
+        $sql = "update $tabla set $nuevos where $condicion";
+        $respuesta = $this -> connect -> query($sql);
+        return $respuesta;
+    }
+    public function SQL_modificarReporte($tabla, $nuevosValores, $condicion)
+    {
+        $nuevos = "";
+        foreach ($nuevosValores as $key => $item) {
+            if($item === end($nuevosValores))
+            {
+                $nuevos.= "$key = $item";
+            }
+            else
+            {
+                $nuevos.= "$key = $item,";
             }
         }
 

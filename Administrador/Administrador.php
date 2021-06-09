@@ -57,15 +57,16 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="Administrador.php?pagina=Usuarios.php">consulta de usuario</a></li>
-                            <li><a class="dropdown-item" href="Administrador.php?pagina=Baneados.php">Baneados</a></li>
+                            <li><a class="dropdown-item" href="Administrador.php?pagina=Registro.php">Registrar usuario</a></li>
+                            <li><a class="dropdown-item" href="Administrador.php?pagina=Usuarios.php&opcion=all">Consulta de usuario</a></li>
+                            <li><a class="dropdown-item" href="Administrador.php?pagina=Baneados.php&opcion=all">Baneados</a></li>
                         </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prestamos</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="Administrador.php?pagina=Prestamos.php&opcion=all">Prestamos</a></li>
-                                <li><a class="dropdown-item" href="Administrador.php?pagina=Damages.php">Reporte de daños</a></li>
+                                <li><a class="dropdown-item" href="Administrador.php?pagina=Reporte_daños.php">Reporte de daños</a></li>
                             </ul>
                         </li> 
                         <li class="nav-item dropdown">
@@ -79,15 +80,21 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mantenimiento</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item " href="Administrador.php?pagina=Mantenimiento.php">Mantenimiento</a></li>
+                            <li><a class="dropdown-item " href="Administrador.php?pagina=Mantenimiento.php&opcion=all">Mantenimiento</a></li>
                             <li><a class="dropdown-item" href="Administrador.php?pagina=Refacciones.php">Refacciones</a></li>
                         </ul>
-                        </li>
+                        </li> 
                 </div>
-                <div class="col-2 d-inline">
+                <div class="col-2 d-inline collapse">
                     <ul class="nav justify-content-end">
-                            <a class="nav-link text-white "  aria-current="page" href="Administrador.php?pagina=Cerrar.php">Cerrar sesión</a>
-                    </ul>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="userIcon.gif" alt="User" width="25" height="25">&nbsp <?php echo $_SESSION["Administrador"][0];?></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="Administrador.php?pagina=Cerrar.php">Cerrar sesión</a></li>
+                                    <li><a class="dropdown-item" href="Administrador.php?pagina=Modificar/Password.php">Cambiar contraseña</a></li>
+                                </ul>
+                            </li>
+                    </ul>   
                 </div>
             </ul>
         </nav>

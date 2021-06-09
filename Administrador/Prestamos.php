@@ -1,6 +1,21 @@
 <?php
 @session_start();
 $objeto = new ClsConnection();
+
+$tabla = "prestamo";
+$consulta = $objeto -> SQL_consulta($tabla, "idPrestamo, fecha_entrega");
+while ($fila = $consulta -> fetch_assoc())
+{
+    $fecha_actual = strtotime(date("Y-m-d"));
+    $fecha_entrega = strtotime("$fila[fecha_entrega]");
+            
+    if($fecha_actual > $fecha_entrega)
+    {
+        $datos["estado"] = "No entregó";
+        $condicion = "estado = 'En préstamo' and idPrestamo=$fila[idPrestamo]";
+        $rs = $objeto -> SQL_modificar("prestamo", $datos, $condicion);
+    }
+}
 ?>
 
 <div class="row d-flex justify-content-center">
@@ -10,25 +25,32 @@ $objeto = new ClsConnection();
                 <?php
                     if(isset($_GET["opcion"]))
                     {
-                        if($_GET["opcion"] == "Activo" || $_GET["opcion"] == "Usuario")
+                        if($_GET["opcion"] == "Usuario" || $_GET["opcion"] == "Estado")
                         {
                             echo"
                                 <label class='form-label' for='dato'>Escriba aquí:</label>
-                                <input class='form-control' placeholder='Nombre...'type='text' name='dato' required>
+                                <input class='form-control' type='text' name='dato' required>
                             ";
                         }
                         elseif($_GET["opcion"] == "Fecha")
                         {
                             echo"
                                 <label class='form-label' for='dato'>Escriba aquí:</label>
-                                <input class='form-control' type='date' title='Ingrese nombre o apellido...'  name='dato' required>
+                                <input class='form-control' type='date' name='dato' required>
+                            ";
+                        }
+                        elseif($_GET["opcion"] == "Activo")
+                        {
+                            echo"
+                                <label class='form-label' for='dato'>Escriba aquí:</label>
+                                <input class='form-control' placeholder='Nombre o N de serie' type='text'  name='dato' required>
                             ";
                         }
                         else
                         {
                             echo"
                                 <label class='form-label' for='dato'>Escriba aquí:</label>
-                                <input class='form-control' placeholder='Nombre...'type='text' name='dato' required>
+                                <input class='form-control' type='text' name='dato' required>
                             ";
                         }
                     }
@@ -41,6 +63,7 @@ $objeto = new ClsConnection();
                     <option value='?pagina=Prestamos.php&opcion=Usuario'>Usuario</option>
                     <option value='?pagina=Prestamos.php&opcion=Activo'>Activo fijo</option>
                     <option value='?pagina=Prestamos.php&opcion=Fecha'>Fecha de préstamo</option>
+                    <option value='?pagina=Prestamos.php&opcion=Estado'>Estado del préstamo</option>
                 </select>
             </div>
             <div class="col-md-12">
@@ -69,6 +92,7 @@ if(isset($_POST["buscar"]))
                         <th scope='col'>Fecha de entrega</th>
                         <th scope='col'>Estado del préstamo</th>
                         <th scope='col'>Calidad en la entrega</th>
+                        <th scope='col'>Acción</th>
                     </tr>
                 </thead>
                 <tbody>";
@@ -77,11 +101,19 @@ if(isset($_POST["buscar"]))
                     $campos = "idPrestamo, usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, inventario.nombre AS Nombre_Ac, inventario.numero_serie AS Serie_Ac, fecha_prestamo, hora_pretamo, fecha_entrega, estado, calidad_entrega";
                     if($_GET["opcion"] == "Activo" || $_GET["opcion"] == "all")
                     {
-                        $condicion = " where inventario.nombre like '%$dato%'";
+                        $condicion = " where inventario.nombre like '%$dato%' or inventario.numero_serie like '%$dato%'";
+                    }
+                    elseif($_GET["opcion"] == "Usuario")
+                    {
+                        $condicion = " where usuarios.nombres like '%$dato%' or usuarios.apellidos like '%$dato%'";
                     }
                     elseif($_GET["opcion"] == "Fecha")
                     {
                         $condicion = " where fecha_prestamo like '%$dato%'";
+                    }
+                    elseif($_GET["opcion"] == "Estado")
+                    {
+                        $condicion = " where estado like '%$dato%'";
                     }
                     $tablaCondicion = $tabla.$condicion;
                     $consulta = $objeto -> SQL_consulta($tablaCondicion, $campos);
@@ -94,6 +126,15 @@ if(isset($_POST["buscar"]))
                     {
                         while ($fila = $consulta -> fetch_assoc())
                         {
+                            $estado="$fila[estado]";
+                            if($estado == "Entregado" || $estado == "Entrega tardía")
+                            {
+                                $_SESSION["BtnRevisar"]="";
+                            }
+                            else
+                            {
+                                $_SESSION["BtnRevisar"]="disabled";
+                            }
                             echo "<tr>
                             <th scope='row'>$fila[idPrestamo]</th>
                             <td>$fila[nombre_U] $fila[apellido_U]</td>
@@ -103,12 +144,13 @@ if(isset($_POST["buscar"]))
                             <td>$fila[fecha_entrega]</td>
                             <td>$fila[estado]</td>
                             <td>$fila[calidad_entrega]</td>
+                            <td><a class='btn btn-warning ".$_SESSION["BtnRevisar"]."' href='Administrador.php?pagina=Modificar/Damages.php&Serie_Ac=$fila[Serie_Ac]&Prestamo=$fila[idPrestamo]'>Revisar</a></td>
                             </tr>";
                         }
                     }
                     ?>
                     <tr>
-                        <td colspan="8"><div class="d-flex justify-content-center"><a class="btn btn-info justify-content-center" href='Empleado_Estudiante.php?pagina=Prestamo.php&opcion=all'>Ver todos</a></div></td>
+                        <td colspan="9"><div class="d-flex justify-content-center"><a class="btn btn-info justify-content-center" href='Administrador.php?pagina=Prestamos.php&opcion=all'>Ver todos</a></div></td>
                     </tr>
                 </tbody>
             </form>
@@ -149,7 +191,7 @@ else{
                 <tbody>";
         
                     $tabla = "prestamo INNER JOIN usuarios ON (prestamo.carnet_FK2 = usuarios.carnet) INNER JOIN inventario ON (prestamo.idActivo_FK = inventario.IdActivo)";
-                    $campos = "idPrestamo, usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, inventario.nombre AS Nombre_Ac, inventario.numero_serie AS Serie_Ac, fecha_prestamo, hora_pretamo, fecha_entrega, estado, calidad_entrega";
+                    $campos = "idPrestamo, usuarios.carnet  AS carnet, usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, inventario.nombre AS Nombre_Ac, inventario.numero_serie AS Serie_Ac, fecha_prestamo, hora_pretamo, fecha_entrega, estado, calidad_entrega";
                    
                     $consulta = $objeto -> SQL_consulta($tabla, $campos);
 
@@ -161,7 +203,16 @@ else{
                     {
                         while ($fila = $consulta -> fetch_assoc())
                         {
-                        echo "<tr>
+                            $estado="$fila[estado]";
+                            if($estado == "Entregado" || $estado == "Entrega tardía")
+                            {
+                                $_SESSION["BtnRevisar"]="";
+                            }
+                            else
+                            {
+                                $_SESSION["BtnRevisar"]="disabled";
+                            }
+                            echo "<tr>
                                 <th scope='row'>$fila[idPrestamo]</th>
                                 <td>$fila[nombre_U] $fila[apellido_U]</td>
                                 <td>$fila[Nombre_Ac] ($fila[Serie_Ac])</td>
@@ -170,7 +221,7 @@ else{
                                 <td>$fila[fecha_entrega]</td>
                                 <td>$fila[estado]</td>
                                 <td>$fila[calidad_entrega]</td>
-                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Damages.php&Serie_Ac=$fila[Serie_Ac]&Prestamo=$fila[idPrestamo]'>Revisar</a></td>
+                                <td><a class='btn btn-warning ".$_SESSION["BtnRevisar"]."' href='Administrador.php?pagina=Modificar/Damages.php&Serie_Ac=$fila[Serie_Ac]&Prestamo=$fila[idPrestamo]&User=$fila[carnet]'>Revisar</a></td>
                             </tr>";
                         }
                     }

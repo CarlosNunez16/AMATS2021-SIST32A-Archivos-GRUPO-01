@@ -129,14 +129,14 @@ if (isset($_POST['enviar']))
                         {
                             echo"
                                 <label class='form-label' for='dato'>Ingresar fecha:</label>
-                                <input class='form-control' type='date' name='dato' required>
+                                <input class='form-control' type='date' max=".date("Y-m-d")." name='dato' required>
                             ";
                         }
                         elseif($_GET["opcion"] == "Usuario")
                         {
                             echo"
                                 <label class='form-label' for='dato'>Escriba aquí:</label>
-                                <input class='form-control' type='text' placeholder='Nombre o apellido...' title='Ingrese nombre o apellido...'  name='dato' required>
+                                <input class='form-control' type='text' placeholder='Nombre o apellido...'   name='dato' required>
                             ";
                         }
                         else
@@ -253,7 +253,7 @@ if(isset($_POST["buscar"]))
                     }
                     else
                     {
-                        while ($fila = $consulta -> fetch_assoc())
+                        while ($fila = $consulta -> fetch_assoc()) 
                         {
                         echo "<tr>
                                 <td><input type='checkbox' name='seleccionados[]' value='$fila[idActivo]' required></td>
@@ -272,7 +272,7 @@ if(isset($_POST["buscar"]))
                                 <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Inventario.php&idActivo=$fila[idActivo]'>Modificar</a></td>
                             </tr>";
                             $_SESSION["Btn_Eliminar"]="Enabled";
-                    }
+                        }
                     }
                     ?>
                         <tr>

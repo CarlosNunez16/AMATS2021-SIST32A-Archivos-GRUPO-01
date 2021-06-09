@@ -57,6 +57,7 @@ if (isset($_POST['enviar']))
 		</form>
 	</div>
 </div>
+
 <?php
 if(isset($_POST["buscar"]))
 {
@@ -153,7 +154,7 @@ else{
 								if (mysqli_num_rows($consulta) < 1) 
 								{
 									echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
-									// $_SESSION["Btn_Eliminar"]="Disabled";
+									$_SESSION["Btn_Eliminar"]="Disabled";
 								}
 								else
 								{
@@ -166,21 +167,11 @@ else{
 											<td>$fila[descripcion]</td>
 											<td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Grupos.php&grupo=$fila[idGrupo]'>Modificar</a></td>
 										</tr>";
-										// $_SESSION["Btn_Eliminar"]="Enabled";
+										$_SESSION["Btn_Eliminar"]="Enabled";
 									}
 								}
 							?>
 							<tr>
-								<script>
-									$('seleccionados[]').change(function(){
-										var checkeado = $(this).attr("checked");
-										if(checkeado) {
-											alert('activado');
-										} else {
-											alert('desactivado');
-										}
-									});
-								</script>
 								<td colspan="5"><div class="d-flex justify-content-center"><input class="btn btn-danger justify-content-center" type="submit" name="eliminar" value="Eliminar" <?php echo $_SESSION["Btn_Eliminar"]?>></div></td>
 							</tr>
 						</tbody>

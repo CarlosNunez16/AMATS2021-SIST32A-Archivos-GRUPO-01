@@ -1,5 +1,5 @@
-CREATE DATABASE inventario;
-USE inventario;
+CREATE DATABASE inventario_DB;
+USE inventario_DB;
 
 CREATE TABLE usuarios (
 carnet INT NOT NULL,
@@ -78,6 +78,7 @@ idActivo_FK2 INT NOT NULL,
 FOREIGN KEY (idActivo_FK2) REFERENCES inventario (idActivo),
 fecha VARCHAR (100) NOT NULL,
 detalles VARCHAR (500) NOT NULL,
+refacciones VARCHAR (500) NOT NULL,
 carnet_FK3 INT NOT NULL,
 FOREIGN KEY (carnet_FK3) REFERENCES usuarios (carnet),
 total VARCHAR (100) NOT NULL, 
@@ -94,16 +95,14 @@ idMantenimiento_FK INT NOT NULL,
 FOREIGN KEY (idMantenimiento_FK) REFERENCES mantenimientos (idMantenimiento),
 carnet_FK4 INT NOT NULL,
 FOREIGN KEY (carnet_FK4) REFERENCES usuarios (carnet),
-nombre VARCHAR (100) NOT NULL,
-marca VARCHAR (100) NOT NULL,
-modelo VARCHAR (100) NOT NULL,
-color VARCHAR (100) NOT NULL,
-numero_serie VARCHAR (100) NOT NULL,
-nueva_ubicacion VARCHAR (100) NOT NULL, 
+refacciones VARCHAR (500) NOT NULL,
 PRIMARY KEY (idRefacciones)
 );
 
-DELETE FROM inventario
+UPDATE prestamo SET fecha_entrega='2021-06-07' WHERE fecha_entrega LIKE '2021-06-08'
 
-SELECT idPrestamo, usuarios.carnet AS Carnet,usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, inventario.nombre AS Nombre_Ac, inventario.numero_serie AS Serie_Ac, fecha_prestamo, hora_pretamo, fecha_entrega, estado, calidad_entrega
-FROM prestamo INNER JOIN usuarios ON (prestamo.carnet_FK2 = usuarios.carnet) INNER JOIN inventario ON (prestamo.idActivo_FK = inventario.IdActivo) WHERE carnet = 128821
+SELECT idDanos, idPrestamo_FK, fecha, detalles 
+FROM reportes INNER JOIN prestamo ON (reportes.idPrestamo_FK = prestamo.idPrestamo) WHERE carnet_FK2 = 128821
+
+DELETE FROM prestamo 
+

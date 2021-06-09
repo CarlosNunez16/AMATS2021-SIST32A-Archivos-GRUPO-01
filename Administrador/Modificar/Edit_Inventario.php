@@ -22,80 +22,107 @@ $objeto = new ClsConnection();
 	$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", "idActivo= ".$_GET["idActivo"]."");
 	while ($filas = $consulta -> fetch_assoc())
 	{
-		echo "<form method='post'>
-        <select name='grupos'>";
-            $tabla = 'grupos';
-            $consultas = $objeto -> SQL_consulta($tabla, 'idGrupo, nombre');
-            while ($fila = $consultas -> fetch_assoc())
-            {
-                $idGrupo = "$fila[idGrupo]";
-                $idGrupo_FK2 = "$filas[idGrupo_FK2]";
+		echo "
+        <div class='row d-flex justify-content-center'>
+	        <div class='col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block' style='background-color:#F5F5F5'>
+		        <form class='row g-3 needs-validation' method='post'>
+                    <div class='col-md-6'>
+                        <label for='grupos' class='form-label'>Grupo:</label>
+                        <select class='form-select' name='grupos'>";
+                            $tabla = 'grupos';
+                            $consultas = $objeto -> SQL_consulta($tabla, 'idGrupo, nombre');
+                            while ($fila = $consultas -> fetch_assoc())
+                            {
+                                $idGrupo = "$fila[idGrupo]";
+                                $idGrupo_FK2 = "$filas[idGrupo_FK2]";
 
-                    echo "<Option value='$fila[idGrupo]'";
-                    if ($idGrupo == $idGrupo_FK2)
-                    {
-                        echo "selected";
-                    }
-                    echo ">$fila[nombre]</Option>";
-            }
-        echo "</select>
-        <select name='subgrupos'>";
-        $tabla = 'subgrupos';
-        $consulta = $objeto -> SQL_consulta($tabla, 'idSubgrupo, nombre');
-        while ($fila = $consulta -> fetch_assoc())
-        {
-            $idSubgrupo = "$fila[idSubgrupo]";
-            $idSubgrupo_FK = "$filas[idSubgrupo_FK]";
+                                    echo "<Option value='$fila[idGrupo]'";
+                                    if ($idGrupo == $idGrupo_FK2)
+                                    {
+                                        echo "selected";
+                                    }
+                                    echo ">$fila[nombre]</Option>";
+                            }
+                        echo "</select>
+                    </div>
+                    <div class='col-md-6'>
+                        <label for='subgrupos' class='form-label'>Subgrupo:</label>
+                        <select class='form-select' name='subgrupos'>";
+                        $tabla = 'subgrupos';
+                        $consulta = $objeto -> SQL_consulta($tabla, 'idSubgrupo, nombre');
+                        while ($fila = $consulta -> fetch_assoc())
+                        {
+                            $idSubgrupo = "$fila[idSubgrupo]";
+                            $idSubgrupo_FK = "$filas[idSubgrupo_FK]";
 
-            echo "<Option value='$fila[idSubgrupo]'";
-            if ($idSubgrupo == $idSubgrupo_FK)
-            {
-                echo "selected";
-            }
-            echo ">$fila[nombre]</Option>";
-        }
-        echo "
-        </select>
+                            echo "<Option value='$fila[idSubgrupo]'";
+                            if ($idSubgrupo == $idSubgrupo_FK)
+                            {
+                                echo "selected";
+                            }
+                            echo ">$fila[nombre]</Option>";
+                        }
+                        echo "
+                        </select>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='form-label' for='nombre'>Nombre: </label>
+                        <input class='form-control' type='text' value='$filas[nombre]' name='nombre' required>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='form-label' for='marca'>Marca: </label>
+                        <input class='form-control' type='text' value='$filas[marca]' name='marca' required>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='form-label' for='modelo'>Modelo: </label>
+                        <input class='form-control' type='text' value='$filas[modelo]' name='modelo' required>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='form-label' for='color'>Color: </label>
+                        <input class='form-control form-control-color' type='color' value='$filas[color]' name='color' required>
+                    </div>
+                    <div class='col-md-6'>
+                        <label for='usuarios' class='form-label'>Usuario:</label>
+                        <select class='form-select' name='usuarios'>
+                        ";
+                        $tabla = 'usuarios';
+                        $consulta = $objeto -> SQL_consulta($tabla, 'carnet, nombres, apellidos');
+                        while ($fila = $consulta -> fetch_assoc())
+                        {
+                            $carnet = "$fila[carnet]";
+                            $carnet_FK = "$filas[carnet_FK]";
 
-        <label for='nombre'>Nombre: </label>
-        <input type='text' value='$filas[nombre]' name='nombre' required>
-        <label for='marca'>Marca: </label>
-        <input type='text' value='$filas[marca]' name='marca' required>
-        <label for='modelo'>Modelo: </label>
-        <input type='text' value='$filas[modelo]' name='modelo' required>
-        <label for='color'>Color: </label>
-        <input type='color' value='$filas[color]' name='color' required>
-        <select name='usuarios'>
-        ";
-        $tabla = 'usuarios';
-        $consulta = $objeto -> SQL_consulta($tabla, 'carnet, nombres, apellidos');
-        while ($fila = $consulta -> fetch_assoc())
-        {
-            $carnet = "$fila[carnet]";
-            $carnet_FK = "$filas[carnet_FK]";
-
-            echo "<Option value='$fila[carnet]'";
-            if ($carnet == $carnet_FK)
-            {
-                echo "selected";
-            }
-            echo ">$fila[nombres] $fila[apellidos]</Option>";
-        }
-        $calidad="$filas[calidad]";
-        echo "
-        </select>
-            <label for='ubicacion'>Ubicación: </label>
-            <input type='text' value='$filas[ubicacion]' name='ubicacion' required>
-            <select name='calidad'>
-                <Option value='Excelente' "; if($calidad == "5"){ echo "selected";} echo">Excelente</Option>
-                <Option value='Muy bueno' "; if($calidad == "4"){ echo "selected";} echo">Muy bueno</Option>
-                <Option value='Bueno' "; if($calidad == "3"){ echo "selected";} echo">Bueno</Option>
-                <Option value='Malo' "; if($calidad == "2"){ echo "selected";} echo">Malo</Option>
-                <Option value='Necesita reparación'" ; if($calidad == "1"){ echo "selected";} echo">Necesita reparación</Option>
-            </select>
-
-            <input type='submit' name='Modificar' value='Modificar'>
-        </form>
+                            echo "<Option value='$fila[carnet]'";
+                            if ($carnet == $carnet_FK)
+                            {
+                                echo "selected";
+                            }
+                            echo ">$fila[nombres] $fila[apellidos]</Option>";
+                        }
+                        $calidad="$filas[calidad]";
+                        echo "
+                        </select>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='form-label' for='ubicacion'>Ubicación: </label>
+                        <input class='form-control' type='text' value='$filas[ubicacion]' name='ubicacion' required>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='form-label' for='calidad'>Calidad: </label>
+                        <select class='form-select' name='calidad'>
+                            <Option value='Excelente' "; if($calidad == "5"){ echo "selected";} echo">Excelente</Option>
+                            <Option value='Muy bueno' "; if($calidad == "4"){ echo "selected";} echo">Muy bueno</Option>
+                            <Option value='Bueno' "; if($calidad == "3"){ echo "selected";} echo">Bueno</Option>
+                            <Option value='Malo' "; if($calidad == "2"){ echo "selected";} echo">Malo</Option>
+                            <Option value='Necesita reparación'" ; if($calidad == "1"){ echo "selected";} echo">Necesita reparación</Option>
+                        </select>
+                    </div>
+                    <div class='col-md-12'>
+                        <input class='btn btn-success' type='submit' name='Modificar' value='Modificar'>
+                    </div>
+                </form>
+            </div>
+        </div>
         ";
 	}
 ?>

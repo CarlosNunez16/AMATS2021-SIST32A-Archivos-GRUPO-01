@@ -1,0 +1,298 @@
+<div class="row d-flex justify-content-center">
+	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+		<form class="row g-3 needs-validation" method="post">
+            <div class="col-md-4">
+                <label for="activo" class="form-label">Activo Fijo:</label>
+                <select class="form-select" name="activo">
+                    <?php
+                        $tabla = 'inventario';
+                        $consulta = $objeto -> SQL_consulta($tabla, "idActivo, nombre");
+                        while ($fila = $consulta -> fetch_assoc())
+                        {
+                            echo "<Option value='$fila[idActivo]'>$fila[nombre]</Option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label for="usuario" class="form-label">Usuario:</label>
+                <select class="form-select" name="usuario">
+                    <?php
+                        $tabla = 'usuarios';
+                        $consulta = $objeto -> SQL_consulta($tabla, "carnet, nombres, apellidos");
+                        while ($fila = $consulta -> fetch_assoc())
+                        {
+                            echo "<Option value='$fila[carnet]'>$fila[nombres] $fila[apellidos]</Option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="proximo">Próximo mantenimiento: </label>
+                <select class="form-select" name="proximo">
+                    <Option value='15 días'>15 días</Option>
+                    <Option value='Muy bueno'>1 mes</Option>
+                    <Option value='2 meses'>2 meses</Option>
+                    <Option value='3 meses'>3 meses</Option>
+                </select>     
+            </div>
+            <div class="col-md-12">
+                <label class="form-label" for="detalles">Detalles del mantenimiento: </label>
+                <div class="form-floating">
+                    <textarea class="form-control" name="detalles" required></textarea>
+                    <label for="floatingTextarea">Escriba aquí</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label" for="justificacion">Justificación: </label>
+                <div class="form-floating">
+                    <textarea class="form-control" name="justificacion" required></textarea>
+                    <label for="floatingTextarea">Escriba aquí</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <input class="btn btn-primary" type="submit" name="enviar" value="Guardar">
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php
+    if (isset($_POST['enviar']))
+    {
+        $datos[] = $_POST['activo'];
+        $datos[] = date("Y-m-d");
+        $datos[] = $_POST['detalles'];
+        $datos[] = "Sin confirmar";
+        $datos[] = $_POST['usuario'];
+        $datos[] = "$ 0.00";
+        $datos[] = $_POST['justificacion'];
+        $datos[] = "Sin definir";
+        $datos[] = $_POST['proximo'];
+        $datos[] = "Sin revisar";
+
+
+        $tabla = "inventario INNER JOIN prestamo ON (prestamo.idActivo_FK = inventario.IdActivo) INNER JOIN mantenimientos ON (inventario.idActivo=mantenimientos.idActivo_FK2)";
+        $consulta = $objeto -> SQL_consulta_condicional($tabla, "idActivo", "idActivo = $datos[0] AND calidad_nueva='Sin revisar' OR estado = 'En préstamo' OR estado = 'En retraso'");
+
+        if (mysqli_num_rows($consulta) > 0) 
+        {
+            echo "<script>alert('El activo fijo ya está en mantenimiento o está en préstamo.')</script>";
+        }
+        else
+        {
+            $tabla = "mantenimientos";
+            $campos = array('idActivo_FK2','fecha','detalles', 'refacciones','carnet_FK3','total','justificacion', 'tiempo', 'proximo_mantenimiento', 'calidad_nueva');
+
+            $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
+            echo "<script>alert('Mantenimiento registrado')</script>";
+        }
+    }
+?>
+
+<div class="row d-flex justify-content-center">
+	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
+            <div class="col-md-6">
+                <?php
+                    if(isset($_GET["opcion"]))
+                    {
+                        if($_GET["opcion"] == "Activo" || $_GET["opcion"] == "Usuario")
+                        {
+                            echo"
+                                <label class='form-label' for='dato'>Escriba aquí:</label>
+                                <input class='form-control' type='text' name='dato' required>
+                            ";
+                        }
+                        elseif($_GET["opcion"] == "Fecha")
+                        {
+                            echo"
+                                <label class='form-label' for='dato'>Seleccione la fecha:</label>
+                                <input class='form-control' type='date' max=".date("Y-m-d")." name='dato' required>
+                            ";
+                        }
+                        else
+                        {
+                            echo"
+                                <label class='form-label' for='dato'>Escriba aquí:</label>
+                                <input class='form-control' placeholder='Nombre del activo' type='text' name='dato' required>
+                            ";
+                        }
+                    }
+                ?>
+            </div> 
+            <div class="col-md-6">
+                <label class="form-label" for="tipo">Buscar por...</label>
+                <select class="form-select" name="tipo" onChange='javascript:abreSitio()' required>
+                    <option value='#'>Elegir...</option>
+                    <option value='?pagina=Mantenimiento.php&opcion=Activo'>Activo fijo</option>
+                    <option value='?pagina=Mantenimiento.php&opcion=Usuario'>Usuario</option>
+                    <option value='?pagina=Mantenimiento.php&opcion=Fecha'>Fecha de registro</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <input class='btn btn-success' type='submit' name='buscar'  value='Buscar'>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php
+if(isset($_POST["buscar"]))
+{
+	$dato = $_POST["dato"];
+	echo "
+    <div class='row d-flex justify-content-center'>
+        <div class='col-12 m-3'>
+            <table class='table table-dark table-striped table-hover'>
+            <form method='post'>
+                <thead>
+                    <tr>
+                        <th scope='col'>ID</th>
+                        <th scope='col'>Activo Fijo</th>
+                        <th scope='col'>Fecha</th>
+                        <th scope='col'>Detalles</th>
+                        <th scope='col'>Refacciones</th>
+                        <th scope='col'>Usuario</th>
+                        <th scope='col'>Total</th>
+                        <th scope='col'>Justificación</th>
+                        <th scope='col'>Duración</th>
+                        <th scope='col'>Próximo mantenimiento</th>
+                        <th scope='col'>Nueva calidad</th>
+                        <th scope='col'>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>";
+    
+                    $tabla = "mantenimientos INNER JOIN inventario ON (mantenimientos.idActivo_FK2 = inventario.idActivo) INNER JOIN usuarios ON (mantenimientos.carnet_FK3 = usuarios.carnet)";
+                    $campos = "idMantenimiento, inventario.idActivo as idActivo, inventario.nombre AS Activo, fecha, detalles, usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, usuarios.carnet AS carnet, total, justificacion, tiempo, proximo_mantenimiento, calidad_nueva, mantenimientos.refacciones as Refacciones";
+                    if($_GET["opcion"] == "Activo" || $_GET["opcion"] == "all")
+                    {
+                    $condicion = " where inventario.nombre like '%$dato%'";
+                    }
+                    elseif($_GET["opcion"] == "Fecha")
+                    {
+                        $condicion = " where fecha like '%$dato%'";
+                    }
+                    elseif($_GET["opcion"] == "Usuario")
+                    {
+                        $condicion = " where usuarios.nombres like '%$dato%' or usuarios.apellidos like '%$dato%'";
+                    }
+                    $tablaCondicion = $tabla.$condicion;
+                    $consulta = $objeto -> SQL_consulta($tablaCondicion, $campos);
+                    
+                    if (mysqli_num_rows($consulta) < 1) 
+                    {
+                        echo "<tr><td colspan='11' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
+                    }
+                    else
+                    {
+                        while ($fila = $consulta -> fetch_assoc())
+                        {
+                            $tiempo="$fila[tiempo]";
+                            if($tiempo == "Sin definir")
+                            {
+                                $_SESSION["BtnFinalizar"]="";
+                            }
+                            else
+                            {
+                                $_SESSION["BtnFinalizar"]="disabled";
+                            }
+                            echo "<tr>
+                                <th scope='row'>$fila[idMantenimiento]</th>
+                                <td>$fila[Activo]</td>
+                                <td>$fila[fecha]</td>
+                                <td>$fila[detalles]</td>
+                                <td>$fila[Refacciones]</td>
+                                <td>$fila[nombre_U] $fila[apellido_U]</td>
+                                <td>$fila[total]</td>
+                                <td>$fila[justificacion]</td>
+                                <td>$fila[tiempo]</td>
+                                <td>$fila[proximo_mantenimiento]</td>
+                                <td>$fila[calidad_nueva]</td>
+                                <td><a class='btn btn-warning ".$_SESSION["BtnFinalizar"]."' href='Administrador.php?pagina=Modificar/Edit_Mantenimiento.php&id=$fila[idMantenimiento]&Activo=$fila[idActivo]&User=$fila[carnet]'>Finalizar</a></td>
+                            </tr>";
+                        }
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="11"><div class="d-flex justify-content-center"><a class="btn btn-info justify-content-center" href='Administrador.php?pagina=Mantenimiento.php&opcion=all'>Ver todos</a></div></td>
+                    </tr>
+                </tbody>
+            </form>
+            </table>
+        </div>
+    </div>
+        <?php
+}
+else
+{
+    echo "
+    <div class='row d-flex justify-content-center'>
+        <div class='col-12 m-3'>
+            <table class='table table-dark table-striped table-hover'>
+            <form method='post'>
+                <thead>
+                    <tr>
+                        <th scope='col'>ID</th>
+                        <th scope='col'>Activo Fijo</th>
+                        <th scope='col'>Fecha</th>
+                        <th scope='col'>Detalles</th>
+                        <th scope='col'>Refacciones</th>
+                        <th scope='col'>Usuario</th>
+                        <th scope='col'>Total</th>
+                        <th scope='col'>Justificación</th>
+                        <th scope='col'>Duración</th>
+                        <th scope='col'>Próximo mantenimiento</th>
+                        <th scope='col'>Nueva calidad</th>
+                        <th scope='col'>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        
+                    $tabla = "mantenimientos INNER JOIN inventario ON (mantenimientos.idActivo_FK2 = inventario.idActivo) INNER JOIN usuarios ON (mantenimientos.carnet_FK3 = usuarios.carnet)";
+                    $campos = "idMantenimiento, inventario.idActivo as idActivo, inventario.nombre AS Activo, fecha, detalles, usuarios.nombres AS nombre_U, usuarios.apellidos AS apellido_U, usuarios.carnet as carnet, total, justificacion, tiempo, proximo_mantenimiento, calidad_nueva, mantenimientos.refacciones as Refacciones";
+
+                    $consulta = $objeto -> SQL_consulta($tabla, $campos);
+
+                    if (mysqli_num_rows($consulta) < 1) 
+                    {
+                        echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
+                    }
+                    else
+                    {
+                        while ($fila = $consulta -> fetch_assoc())
+                        {
+                            $tiempo="$fila[tiempo]";
+                            if($tiempo == "Sin definir")
+                            {
+                                $_SESSION["BtnFinalizar"]="";
+                            }
+                            else
+                            {
+                                $_SESSION["BtnFinalizar"]="disabled";
+                            }
+                            echo "<tr>
+                                <th scope='row'>$fila[idMantenimiento]</th>
+                                <td>$fila[Activo]</td>
+                                <td>$fila[fecha]</td>
+                                <td>$fila[detalles]</td>
+                                <td>$fila[Refacciones]</td>
+                                <td>$fila[nombre_U] $fila[apellido_U]</td>
+                                <td>$fila[total]</td>
+                                <td>$fila[justificacion]</td>
+                                <td>$fila[tiempo]</td>
+                                <td>$fila[proximo_mantenimiento]</td>
+                                <td>$fila[calidad_nueva]</td>
+                                <td><a class='btn btn-warning ".$_SESSION["BtnFinalizar"]."' href='Administrador.php?pagina=Modificar/Edit_Mantenimiento.php&id=$fila[idMantenimiento]&Activo=$fila[idActivo]&User=$fila[carnet]'>Finalizar</a></td>
+                            </tr>";
+                        }
+                    }
+                
+}
+                        ?>
+                </tbody>
+            </form>
+            </table>
+        </div>
+    </div>

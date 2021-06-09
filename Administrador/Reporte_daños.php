@@ -23,15 +23,17 @@ if(isset($_POST["buscar"]))
             <form method='post'>
                 <thead>
                     <tr>
+                        <th scope='col'></th>
                         <th scope='col'>ID</th>
                         <th scope='col'>ID Préstamo</th>
                         <th scope='col'>Fecha</th>
                         <th scope='col'>Detalles</th>
+                        <th scope='col'>Acción</th>
                     </tr>
                 </thead>
                 <tbody>";
     
-                    $tabla = "reportes INNER JOIN prestamo ON (reportes.idPrestamo_FK = prestamo.idPrestamo) where fecha like '%$dato%' and carnet_FK2 = ".$_SESSION["Estudiante_Empleado"][0]."";
+                    $tabla = "reportes INNER JOIN prestamo ON (reportes.idPrestamo_FK = prestamo.idPrestamo) where fecha like '%$dato%'";
                     $campos = "idDanos, idPrestamo_FK, fecha, detalles";
                     $consulta = $objeto -> SQL_consulta($tabla, $campos);
                     
@@ -48,12 +50,13 @@ if(isset($_POST["buscar"]))
                                 <td>$fila[idPrestamo_FK]</td>
                                 <td>$fila[fecha]</td>
                                 <td>$fila[detalles]</td>
+                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Reporte.php&idDanos=$fila[idDanos]'>Modificar</a></td>
                             </tr>";
                         }
                     }
                     ?>
                         <tr>
-                            <td colspan="4"><div class="d-flex justify-content-center"><a class="btn btn-info" href='Empleado_Estudiante.php?pagina=MyDamages.php'>Ver todos</a></div></td>
+                            <td colspan="4"><div class="d-flex justify-content-center"><a class="btn btn-info" href='Administrador.php?pagina=Reporte_daños.php'>Ver todos</a></div></td>
                         </tr>
                 </tbody>
             </form>
@@ -67,18 +70,20 @@ else{
     <div class='row d-flex justify-content-center'>
         <div class='col-6 m-3'>
             <table class='table table-dark table-striped table-hover'>
-            <form method='post'>
+            <form method='post'> 
                 <thead>
                     <tr>
+                        <th scope='col'></th>
                         <th scope='col'>ID</th>
                         <th scope='col'>ID Préstamo</th>
                         <th scope='col'>Fecha</th>
                         <th scope='col' colspan='2'>Detalles</th>
+                        <th scope='col'>Acción</th>
                     </tr>
                 </thead>
                 <tbody>";
     
-                    $tabla = "reportes INNER JOIN prestamo ON (reportes.idPrestamo_FK = prestamo.idPrestamo) WHERE carnet_FK2 = ".$_SESSION["Estudiante_Empleado"][0]."";
+                    $tabla = "reportes INNER JOIN prestamo ON (reportes.idPrestamo_FK = prestamo.idPrestamo)";
                     $campos = "idDanos, idPrestamo_FK, fecha, detalles";
                     $consulta = $objeto -> SQL_consulta($tabla, $campos);
                     
@@ -95,6 +100,7 @@ else{
                                 <td>$fila[idPrestamo_FK]</td>
                                 <td>$fila[fecha]</td>
                                 <td colspan='2'>$fila[detalles]</td>
+                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Reporte.php&idDanos=$fila[idDanos]'>Modificar</a></td>
                             </tr>";
                         }
                     }
