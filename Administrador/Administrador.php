@@ -73,7 +73,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Activos fijos</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="Administrador.php?pagina=Inventario.php&opcion=all">Inventario</a></li>
+                                    <li><a class="dropdown-item" href="Administrador.php?pagina=Inventario.php&opcion=all">Inventario</a></li>
+                                    <li><a class="dropdown-item" href="Administrador.php?pagina=Estado_Activo.php">Estado del activo</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Grupos.php">Grupo</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Subgrupos.php">Subgrupos</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Grafica.php">Gráfica de calidades</a></li>

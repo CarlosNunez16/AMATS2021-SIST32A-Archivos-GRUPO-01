@@ -57,7 +57,7 @@ while ($fila = $consulta -> fetch_assoc())
         $datos[] = "Sin comprobar";
 
         $tablaPres = "prestamo"; 
-        $consultaPres = $objeto -> SQL_consulta_condicional($tablaPres, "idActivo_FK", "idActivo_FK = $datos[1] AND estado = 'En préstamo' OR estado = 'En retraso'");
+        $consultaPres = $objeto -> SQL_consulta_condicional($tablaPres, "idActivo_FK", "idActivo_FK = $datos[1] AND estado = 'En préstamo' OR estado = 'No entregó'");
         $tablaMant = "mantenimientos";
         $consultaMant = $objeto -> SQL_consulta_condicional($tablaMant, "idActivo_FK2", "idActivo_FK2 = $datos[1] AND calidad_nueva='Sin revisar'");
 

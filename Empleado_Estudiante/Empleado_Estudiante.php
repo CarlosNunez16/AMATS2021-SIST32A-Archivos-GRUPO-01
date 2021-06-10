@@ -69,8 +69,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-white active" aria-current="page" href="Empleado_Estudiante.php?pagina=Prestamo.php&opcion=all">Préstamos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white active" aria-current="page" href="Empleado_Estudiante.php?pagina=ActivosFijos.php&opcion=all">Activos fijos</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item"  href="Empleado_Estudiante.php?pagina=ActivosFijos.php&opcion=all">Activos fijos</a></li> 
+                                <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Disponibles.php">Disponibles</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white active" aria-current="page" href="Empleado_Estudiante.php?pagina=MyDamages.php">Mis reportes</a>
