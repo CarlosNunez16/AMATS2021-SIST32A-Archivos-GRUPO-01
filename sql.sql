@@ -101,6 +101,7 @@ PRIMARY KEY (idRefacciones)
 
 SELECT * FROM inventario
 
-SELECT idActivo_FK FROM inventario INNER JOIN prestamo ON (inventario.idActivo=prestamo.idActivo_FK) WHERE idActivo=2
+SELECT idActivo_FK FROM prestamo INNER JOIN inventario ON (prestamo.idActivo_FK=inventario.idActivo) WHERE idActivo_FK=2
 
+SELECT idActivo_FK2 FROM mantenimientos INNER JOIN inventario ON (mantenimientos.idActivo_FK2=inventarioidActivo) WHERE idActivo_F2=2
 

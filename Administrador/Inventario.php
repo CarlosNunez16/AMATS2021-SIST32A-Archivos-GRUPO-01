@@ -372,25 +372,23 @@ else{
 
             foreach($seleccionados as $idActivo)
             {
-                $tablaGrupos = "inventario INNER JOIN grupos ON (inventario.idGrupo_FK2=grupos.idGrupo) WHERE idActivo=$idActivo";
-				$camposGrupos = "idGrupo_FK2";
-				$tablaSubgrupos ="inventario INNER JOIN subgrupos ON (inventario.idSubgrupo_FK = subgrupos.idSubgrupo) WHERE idGrupo=$idGrupo";
-				$camposSubgrupos="idGrupo_FK";
-                $tablaUsuarios ="subgrupos INNER JOIN grupos ON (subgrupos.idGrupo_FK = grupos.idGrupo) WHERE idGrupo=$idGrupo";
-				$camposUsuarios="idGrupo_FK";
-				$consultaGrup = $objeto -> SQL_consulta($tablaGrupos, $camposGrupos);
-				$consultaSub = $objeto -> SQL_consulta($tablaSubgrupos, $camposSubgrupos);
-				if (mysqli_num_rows($consultaInv) > 0 || mysqli_num_rows($consultaSub) > 0) 
+                $tablaPres = "prestamo INNER JOIN inventario ON (prestamo.idActivo_FK=inventario.idActivo) WHERE idActivo_FK=$idActivo";
+				$camposPres= "idActivo_FK";
+
+				$tablaMant ="mantenimientos inner join inventario on (mantenimientos.idActivo_FK2=inventario.idActivo) where idActivo_FK2=$idActivo";
+				$camposMant="idActivo_FK2";
+
+				$consultaPres = $objeto -> SQL_consulta($tablaPres, $camposPres);
+				$consultaMant = $objeto -> SQL_consulta($tablaMant, $camposMant);
+				if (mysqli_num_rows($consultaPres) > 0 || mysqli_num_rows($consultaMant) > 0) 
 				{
-					echo "<script>alert('El grupo puede estar en las tablas inventario o subgrupos, eliminalo primero de dichas tablas.')</script>";
+					echo "<script>alert('El activo fijo puede estar en las tablas préstamo o mantenimiento, eliminalo primero de dichas tablas.')</script>";
 				}
 				else
 				{
-					$rs = $objeto -> SQL_eliminar("grupos", "idGrupo = $idGrupo");
-					echo "<script>alert('GRUPO ELIMINADO');window.location='?pagina=Grupos.php';</script>";
+					$rs = $objeto -> SQL_eliminar("inventario", "idActivo = $idActivo");
+                    echo "<script>alert('ACTIVO FIJO ELIMINADO');window.location='?pagina=Inventario.php&opcion=all';</script>";
 				}
-                // $rs = $objeto -> SQL_eliminar("inventario", "idActivo = $idActivo");
-                // echo "<script>alert('ACTIVO FIJO ELIMINADO');window.location='?pagina=Inventario.php&opcion=all';</script>";
             }
         }
 	}
