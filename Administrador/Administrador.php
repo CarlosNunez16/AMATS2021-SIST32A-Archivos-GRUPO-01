@@ -76,6 +76,7 @@
                             <li><a class="dropdown-item" href="Administrador.php?pagina=Inventario.php&opcion=all">Inventario</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Grupos.php">Grupo</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Subgrupos.php">Subgrupos</a></li>
+                                    <li><a class="dropdown-item" href="Administrador.php?pagina=Grafica.php">Gráfica de calidades</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

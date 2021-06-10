@@ -45,6 +45,13 @@ class ClsConnection
         $respuesta = $this -> connect -> query($sql);
         return $respuesta;
     }
+
+    public function ejecutaSQL($sql)
+    {
+		$respuesta=$this->connect->query($sql);
+		return $respuesta;
+	}
+    
     public function SQL_consultaGeneral($tabla, $campos, $condicion=null)
     {
         $condicionB = "";
