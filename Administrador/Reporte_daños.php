@@ -5,7 +5,7 @@
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-12">
                 <label class='form-label' for='dato'>Ingresar fecha:</label>
-                <input class='form-control' type='date' max="<?php date("Y-m-d");?>" name='dato' required>     
+                <input class='form-control' type='date' max="<?php echo date("Y-m-d");?>" name='dato' required>     
             </div> 
             <div class="col-md-12">
                 <input class='btn btn-success' type='submit' name='buscar'  value='Buscar'>
@@ -42,26 +42,43 @@ if(isset($_POST["buscar"]))
                     if (mysqli_num_rows($consulta) < 1) 
                     {
                         echo "<tr><td colspan='14' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
-                        $_SESSION["Btn_Eliminar"]="Disabled";
+                        echo"<script type='text/javascript'>
+                                $(document).ready(function(){
+                                    $('#BtnEliminar').prop('disabled', true);
+                                });
+                            </script>"; 
                     }                    
                     else
                     {
                         while ($fila = $consulta -> fetch_assoc()) 
                         {
+                            $idPrestamo_FK="$fila[idPrestamo_FK]";
                         echo "<tr>
-                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idPrestamo_FK]'></td>
+                                <td><input type='checkbox' id='$fila[idPrestamo_FK]' name='seleccionados[]' value='$fila[idPrestamo_FK]'></td>
                                 <th scope='row'>$fila[idDanos]</th>
                                 <td>$fila[idPrestamo_FK]</td>
                                 <td>$fila[fecha]</td>
                                 <td>$fila[detalles]</td>
                                 <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Reporte.php&idDanos=$fila[idDanos]'>Modificar</a></td>
                             </tr>";
-                            $_SESSION["Btn_Eliminar"]="Enabled";
+                            echo"<script type='text/javascript'>
+                                    $(document).ready(function(){
+                                        $('#BtnEliminar').prop('disabled', true);
+                                        $('#".$idPrestamo_FK."').prop('checked',false);
+                                        $('#".$idPrestamo_FK."').click(function(){
+                                            if($('#".$idPrestamo_FK."').is(':checked')){
+                                                $('#BtnEliminar').prop('disabled', false);
+                                            }else{
+                                                $('#BtnEliminar').prop('disabled', true);
+                                            }
+                                        });
+                                    });
+                                </script>";
                         }
                     }
                     ?>
                         <tr>
-                            <td colspan='5'><div class='d-flex justify-content-center'><input class='btn btn-danger justify-content-center' type='submit' name='eliminar' value='Eliminar' <?php echo $_SESSION["Btn_Eliminar"];?>></div></td>
+                            <td colspan='5'><div class='d-flex justify-content-center'><input class='btn btn-danger justify-content-center' type='submit' id="BtnEliminar" name='eliminar' value='Eliminar'></div></td>
                             <td><div class="d-flex justify-content-center"><a class="btn btn-info" href='Administrador.php?pagina=Reporte_daños.php'>Ver todos</a></div></td>
                         </tr> 
                 </tbody>
@@ -120,26 +137,43 @@ else{
                     if (mysqli_num_rows($consulta) < 1) 
                     {
                         echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
-                        $_SESSION["Btn_Eliminar"]="Disabled";
+                        echo"<script type='text/javascript'>
+                                $(document).ready(function(){
+                                    $('#BtnEliminar').prop('disabled', true);
+                                });
+                            </script>"; 
                     }                    
                     else
                     {
                         while ($fila = $consulta -> fetch_assoc()) 
                         {
+                            $idPrestamo_FK="$fila[idPrestamo_FK]";
                         echo "<tr>
-                                <td><input type='checkbox' name='seleccionados[]' value='$fila[idPrestamo_FK]'></td>
+                                <td><input type='checkbox' id='$fila[idPrestamo_FK]' name='seleccionados[]' value='$fila[idPrestamo_FK]'></td>
                                 <th scope='row'>$fila[idDanos]</th>
                                 <td>$fila[idPrestamo_FK]</td>
                                 <td>$fila[fecha]</td>
                                 <td>$fila[detalles]</td>
                                 <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Reporte.php&idDanos=$fila[idDanos]'>Modificar</a></td>
                             </tr>";
-                            $_SESSION["Btn_Eliminar"]="Enabled";
+                            echo"<script type='text/javascript'>
+                                    $(document).ready(function(){
+                                        $('#BtnEliminar').prop('disabled', true);
+                                        $('#".$idPrestamo_FK."').prop('checked',false);
+                                        $('#".$idPrestamo_FK."').click(function(){
+                                            if($('#".$idPrestamo_FK."').is(':checked')){
+                                                $('#BtnEliminar').prop('disabled', false);
+                                            }else{
+                                                $('#BtnEliminar').prop('disabled', true);
+                                            }
+                                        });
+                                    });
+                                </script>";
                         }
                     }
                         
                     echo"<tr>
-                            <td colspan='6'><div class='d-flex justify-content-center'><input class='btn btn-danger justify-content-center' type='submit' name='eliminar' value='Eliminar' ".$_SESSION["Btn_Eliminar"]."></div></td>
+                            <td colspan='6'><div class='d-flex justify-content-center'><input class='btn btn-danger justify-content-center' type='submit' id='BtnEliminar' name='eliminar' value='Eliminar'></div></td>
                         </tr>
                     </tbody>
                 </form>

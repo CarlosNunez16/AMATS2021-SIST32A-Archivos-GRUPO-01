@@ -99,26 +99,43 @@ if(isset($_POST["buscar"]))
                 if (mysqli_num_rows($consulta) < 1) 
                 {
                     echo "<tr><td colspan='14' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
-                    $_SESSION["Btn_Eliminar"]="Disabled";
+                    echo"<script type='text/javascript'>
+                            $(document).ready(function(){
+                                $('#BtnEliminar').prop('disabled', true);
+                            });
+                        </script>"; 
                 }
                 else
                 {
                     while ($fila = $consulta -> fetch_assoc())
                     {
+                        $idSubgrupo = "$fila[idSubgrupo]";
                     echo "<tr>
-                            <td><input type='checkbox' name='seleccionados[]' value='$fila[idSubgrupo]'></td>
+                            <td><input type='checkbox' id='$fila[idSubgrupo]' name='seleccionados[]' value='$fila[idSubgrupo]'></td>
                             <th scope='row'>$fila[idSubgrupo]</th>
                             <td>$fila[nombre]</td>
                             <td>$fila[nombre_G]</td>
                             <td>$fila[descripcion]</td>
                             <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Subgrupos.php&grupo=$fila[idSubgrupo]'>Modificar</a></td>
                         </tr>";
-                        $_SESSION["Btn_Eliminar"]="Enabled";
+                        echo"<script type='text/javascript'>
+                                $(document).ready(function(){
+                                    $('#BtnEliminar').prop('disabled', true);
+                                    $('#".$idSubgrupo."').prop('checked',false);
+                                    $('#".$idSubgrupo."').click(function(){
+                                        if($('#".$idSubgrupo."').is(':checked')){
+                                            $('#BtnEliminar').prop('disabled', false);
+                                        }else{
+                                            $('#BtnEliminar').prop('disabled', true);
+                                        }
+                                    });
+                                });
+                            </script>";
                     }
                 }
             ?>
                     <tr>
-                        <td colspan="5"><div class="d-flex justify-content-center"><input class="btn btn-danger justify-content-center" type="submit" name="eliminar" value="Eliminar" <?php echo $_SESSION["Btn_Eliminar"]?>></div></td>
+                        <td colspan="5"><div class="d-flex justify-content-center"><input class="btn btn-danger justify-content-center" type="submit" id="BtnEliminar" name="eliminar" value="Eliminar"></div></td>
                         <td><a class="btn btn-info" href='Administrador.php?pagina=Subgrupos.php'>Ver todos</a></td>
                     </tr>
                 <tbody>
@@ -172,26 +189,44 @@ else{
                 if (mysqli_num_rows($consulta) < 1) 
                 {
                     echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
-                    $_SESSION["Btn_Eliminar"]="Disabled";
+                    echo"<script type='text/javascript'>
+                                $(document).ready(function(){
+                                    $('#BtnEliminar').prop('disabled', true);
+                                });
+                            </script>";
                 }
                 else
                 {
                     while ($fila = $consulta -> fetch_assoc())
                     {
-                    echo "<tr>
-                            <td><input type='checkbox' name='seleccionados[]' value='$fila[idSubgrupo]'></td>
+                        
+                        $idSubgrupo = "$fila[idSubgrupo]";
+                        echo "<tr>
+                            <td><input type='checkbox' id='$fila[idSubgrupo]' name='seleccionados[]' value='$fila[idSubgrupo]'></td>
                             <th scope='row'>$fila[idSubgrupo]</th>
                             <td>$fila[nombre]</td>
                             <td>$fila[nombre_G]</td>
                             <td>$fila[descripcion]</td>
                             <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Subgrupos.php&Subgrupo=$fila[idSubgrupo]'>Modificar</a></td>
                         </tr>";
-                        $_SESSION["Btn_Eliminar"]="Enabled";
+                        echo"<script type='text/javascript'>
+                                $(document).ready(function(){
+                                    $('#BtnEliminar').prop('disabled', true);
+                                    $('#".$idSubgrupo."').prop('checked',false);
+                                    $('#".$idSubgrupo."').click(function(){
+                                        if($('#".$idSubgrupo."').is(':checked')){
+                                            $('#BtnEliminar').prop('disabled', false);
+                                        }else{
+                                            $('#BtnEliminar').prop('disabled', true);
+                                        }
+                                    });
+                                });
+                            </script>";
                     }
                 }
                 ?>
                     <tr>
-                        <td colspan="6"><div class="d-flex justify-content-center"><input class="btn btn-danger justify-content-center" type="submit" name="eliminar" value="Eliminar" <?php echo $_SESSION["Btn_Eliminar"]?>></div></td>
+                        <td colspan="6"><div class="d-flex justify-content-center"><input class="btn btn-danger justify-content-center" id="BtnEliminar" type="submit" name="eliminar" value="Eliminar"></div></td>
                     </tr>
                     </form>
                 </tbody>
