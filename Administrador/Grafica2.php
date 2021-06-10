@@ -2,12 +2,18 @@
 require_once("../Connect.php");
 $obj=new ClsConnection();
 
-$sql="SELECT
-		(SELECT COUNT(*) FROM inventario WHERE calidad='Excelente') AS 'Excelente',
-		(SELECT COUNT(*) FROM inventario WHERE calidad='Muy Bueno') AS 'Muy Bueno',
-		(SELECT COUNT(*) FROM inventario WHERE calidad='Bueno') AS 'Bueno',
-		(SELECT COUNT(*) FROM inventario WHERE calidad='Malo') AS 'Malo',
-		(SELECT COUNT(*) FROM inventario WHERE calidad='Necesita Reparación') AS 'Necesita Reparación'";
+$sql="SELECT (SELECT COUNT(*)
+FROM inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2) 
+WHERE calidad_nueva = 'Sin revisar') AS Mantenimiento, 
+
+(SELECT COUNT(*)
+FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) 
+WHERE estado = 'En préstamo' OR estado = 'No entregó') AS Prestamo, 
+
+(SELECT COUNT(*) 
+FROM inventario 
+WHERE (SELECT COUNT(*) FROM prestamo WHERE inventario.idActivo = prestamo.idActivo_FK AND estado = 'En préstamo' OR estado = 'No entregó')=0
+AND (SELECT COUNT(*) FROM mantenimientos WHERE inventario.idActivo = mantenimientos.idActivo_FK2 AND calidad_nueva = 'Sin revisar')=0) AS Disponibles";
 $rs=$obj->ejecutaSQL($sql);
 $fila=$rs->fetch_assoc();
 
@@ -16,7 +22,7 @@ $datos=implode(",",$fila);
 
 	<script src="../chart/Chart.min.js"></script>
 	<script src="../chart/samples/utils.js"></script>
-	<h1 class="text-center m-3 fs-2">CALIDADES DE ACTIVOS FIJOS</h1>
+	<h1 class="text-center m-3 fs-2">ESTADO DE ACTIVOS FIJOS</h1>
 	<div class="m-3" id="canvas-holder" style="width:50%">
 	<canvas id="chart-area"></canvas>
 	</div>
@@ -33,18 +39,15 @@ $datos=implode(",",$fila);
 						backgroundColor: [
 						window.chartColors.blue,
 						window.chartColors.red,
-						window.chartColors.orange,
-						window.chartColors.yellow,
-						window.chartColors.green,],
+						window.chartColors.orange,],
 					
 					label: 'Dataset 1'}],
 				
 				labels: 
-				['Excelente',
-				'Muy bueno',
-				'Bueno',
-				'Malo',
-				'Necesita Reparación']
+				[
+				'Mantenimiento',
+                'Prestamo',
+				'Disponibles']
 			},
 				options: {
 				responsive: true

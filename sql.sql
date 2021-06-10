@@ -99,34 +99,6 @@ refacciones VARCHAR (500) NOT NULL,
 PRIMARY KEY (idRefacciones)
 );
 
-SELECT idActivo, nombre, estado 
-FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) 
-WHERE estado = 'En préstamo' OR estado = 'No entregó'
 
-SELECT COUNT(*)
-FROM inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2) 
-WHERE calidad_nueva = 'Sin revisar'
+-- olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-SELECT COUNT(*)
-FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2)
-WHERE calidad_nueva = 'Sin revisar' OR estado = 'En préstamo' OR estado = 'No entregó'
-
-SELECT COUNT(*)
-FROM inventario 
-WHERE NOT EXISTS (SELECT idActivo, nombre, estado 
-FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) 
-WHERE estado = 'En préstamo' OR estado = 'No entregó') AND NOT EXISTS (SELECT idActivo, nombre
-FROM inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2) 
-WHERE calidad_nueva = 'Sin revisar')
-
-SELECT (SELECT COUNT(*)
-FROM inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2) 
-WHERE calidad_nueva = 'Sin revisar') AS Prestamo, (SELECT COUNT(*)
-FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2)
-WHERE calidad_nueva = 'Sin revisar' OR estado = 'En préstamo' OR estado = 'No entregó') AS Mantenimiento, (SELECT COUNT(*)
-FROM inventario 
-WHERE NOT EXISTS (SELECT idActivo, nombre, estado 
-FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) 
-WHERE estado = 'En préstamo' OR estado = 'No entregó') AND NOT EXISTS (SELECT idActivo, nombre
-FROM inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2) 
-WHERE calidad_nueva = 'Sin revisar')) AS Disponibles
