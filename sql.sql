@@ -99,6 +99,16 @@ refacciones VARCHAR (500) NOT NULL,
 PRIMARY KEY (idRefacciones)
 );
 
+CREATE TABLE reasignaciones (
+idReasignaciones INT NOT NULL AUTO_INCREMENT,
+idActivo_FK3 INT NOT NULL,
+FOREIGN KEY (idActivo_FK3) REFERENCES inventario (idActivo),
+usuario_anterior INT NOT NULL,
+usuario_nuevo INT NOT NULL,
+calidad_actual VARCHAR (100) NOT NULL,
+justificacion VARCHAR (500) NOT NULL,
+fecha VARCHAR (100) NOT NULL,
+PRIMARY KEY (idReasignaciones)
+)
 
--- olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
+SELECT * FROM usuarios
