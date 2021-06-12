@@ -73,8 +73,9 @@
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item"  href="Empleado_Estudiante.php?pagina=ActivosFijos.php&opcion=all">Activos fijos</a></li> 
+                                <li><a class="dropdown-item"  href="Empleado_Estudiante.php?pagina=MisActivos.php&opcion=all">Mis activos fijos</a></li> 
                                 <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Disponibles.php">Disponibles</a></li>
-                            </ul>
+                            </ul> 
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white active" aria-current="page" href="Empleado_Estudiante.php?pagina=MyDamages.php">Mis reportes</a>
@@ -86,7 +87,7 @@
                 <div class="col-2 d-inline collapse">
                     <ul class="nav justify-content-end">
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="../Administrador/userIcon.gif" alt="User" width="25" height="25">&nbsp <?php echo $_SESSION["Estudiante_Empleado"][0];?></a>
+                            <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="../Administrador/userIcon.gif" alt="User" width="25" height="25"><b title="<?php echo $_SESSION["Estudiante_Empleado"][1]." ".$_SESSION["Estudiante_Empleado"][2];?>">&nbsp <?php echo $_SESSION["Estudiante_Empleado"][0];?></b></a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Modificar/Perfil.php">Perfil</a></li> 
                                 <li><a class="dropdown-item" href="Empleado_Estudiante.php?pagina=Modificar/Password.php">Cambiar contraseña</a></li>

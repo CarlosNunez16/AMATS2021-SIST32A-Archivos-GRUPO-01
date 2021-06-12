@@ -15,7 +15,7 @@
                 <tbody>";
                     $tabla = "inventario";
                     $campos = "idActivo, nombre";
-                    $condicion= "NOT EXISTS (SELECT idActivo, nombre, estado FROM inventario INNER JOIN prestamo ON (inventario.idActivo = prestamo.idActivo_FK) WHERE estado = 'En préstamo' OR estado = 'No entregó') AND NOT EXISTS (SELECT idActivo, nombre FROM inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2) WHERE calidad_nueva = 'Sin revisar')";
+                    $condicion= "(SELECT COUNT(*) FROM prestamo WHERE inventario.idActivo = prestamo.idActivo_FK AND estado = 'En préstamo' OR estado = 'No entregó')=0 AND (SELECT COUNT(*) FROM mantenimientos WHERE inventario.idActivo = mantenimientos.idActivo_FK2 AND calidad_nueva = 'Sin revisar')=0";
                     $consulta = $objeto -> SQL_consulta_condicional($tabla, $campos, $condicion);
                     if (mysqli_num_rows($consulta) < 1) 
                     {

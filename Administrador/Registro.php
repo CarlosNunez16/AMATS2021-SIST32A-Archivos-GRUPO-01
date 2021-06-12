@@ -1,77 +1,59 @@
-<br><br><br>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 ">
-        </div>
-    <div class="col-md-4 float-left" > <!--justify-content-center -->
-        
+<div class="row d-flex justify-content-center">
+	<div class="col-5 m-3 s-1 p-3 border border-danger rounded-3 d-block" style="background-color:#F5F5F5">
+		<h1 class="text-center fs-4" style="color:#8B0000">REGISTRO</h1> 
+		<form class="row g-3 needs-validation" method="post">
+            <div class="col-md-6">
+                <label for="nombres" class="form-label" style="color:#8B0000">Nombres:</label>
+                <input class="form-control" type="text" name="nombres" required> 
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="apellidos" style="color:#8B0000">Apellidos:</label>
+                <input class="form-control" type="text" name="apellidos" required>
+            </div>
+            <div class="col-md-6">
+                <label for="carnet" class="form-label" style="color:#8B0000">Carnet:</label>
+                <input class="form-control"  type="number" min="0" name="carnet" required>
+            </div>
+            <div class="col-md-6">
+                <label for="correo" class="form-label" style="color:#8B0000">Correo Institucional:</label>
+                <input class="form-control" type="email" class="form-control" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
+            </div>
+            <div class="col-md-6">
+                <label for="direccion" class="form-label" style="color:#8B0000">Dirección:</label>
+                <input class="form-control" type="text" name="direccion" required>
+            </div>
+            <div class="col-md-6">
+                <label for="tipoUsuario" class="form-label" style="color:#8B0000">Tipo de usuario:</label>
+                <select name="tipoUsuario" class="form-select" id="tipoUsuario" required>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Empleado">Empleado</option>
+                    <option value="Estudiante">Estudiante</option> 
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label for="carreras" class="form-label" style="color:#8B0000">Carrera/s:</label>
+                    <div class="form-check text-start">
+                        <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Ingeniería de Sistemas Informáticos">
+                        <label class="form-check-label" for="Técnico en Ingeniería de Sistemas Informáticos">Técnico en Ingeniería de Sistemas Informáticos</label>
+                    </div>
+                    <div class="form-check text-start">
+                        <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Hardware Computacional">
+                        <label class="form-check-label" for="Técnico en Hardware Computacional">Técnico en Hardware Computacional</label>
+                    </div>
+                    <div class="form-check text-start">
+                        <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Gestión Tecnológica del Patrimonio Cultural" >
+                        <label class="form-check-label" for="Técnico en Gestión Tecnológica del Patrimonio Cultural">Téc. en Gestión Tecnológica del Patrimonio Cultural</label>
+                    </div>
+                    <div class="form-check text-start">
+                        <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica" >
+                        <label class="form-check-label" for="Técnico en Ingeniería Eléctrica">Técnico en Ingeniería Eléctrica</label>
+                    </div>
+            </div>
+            <div class="col-md-12">
+                <div class="d-flex justify-content-center"><input class="btn btn-primary" type="submit" name="enviar" value="Registrar"></div> 
+            </div>
+        </form>
     </div>
-    <div class="col-md-4 ">
-    </div>
-</div>
-<!--Primer contenedor-->
-<form method="post">
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 "> 
-        </div>
-<!-- PRINCIPAL CNT-->
-<div class="col-md-5 bg-ligth text-center border border-danger rounded-3">
-    <h2 style="color:#8B0000">REGISTRO DE USUARIO.</h2>
-    <label for="nombres"><p class="text-danger">Nombres:</label></p>
-    <input class="form-control" type="text" name="nombres" required>
-    <br>
-    <label for="apellidos"><p class="text-danger">Apellidos:</label></p>
-    <input class="form-control" type="text" name="apellidos" required>
-    <br>
-    <label for="carnet"><p class="text-danger">Carnet:</label></p>
-    <input class="form-control"  type="number" min="0" name="carnet" required>
-    <br>
-    <label for="correo"><p class="text-danger">Correo Institucional:</label></p>
-    <input class="form-control" type="email" class="form-control" name="correo" pattern="+@itca.edu.sv" placeholder="+@itca.edu.sv" required>
-    <br>
-    <label for="direccion"><p class="text-danger">Dirección:</label></p>
-    <input class="form-control" type="text" name="direccion" required>
-    <br>
-    <div class="form-group">
-    <label for="tipoUsuario"><p class="text-danger">Tipo de usuario:</label>
-    <br><br>
-    <select name="tipoUsuario" class="form-control" id="tipoUsuario" required>
-    
-    <option value="Administrador">Administrador</option>
-    <option value="Empleado">Empleado</option>
-    <option value="Estudiante">Estudiante</option>
-    </select></p>
-</div>
-<br>
-    <label for="carreras"><p class="text-danger">Carrera/s:</label>
-<br>
-<div class="form-check text-start">
-    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Ingeniería de Sistemas Informáticos">
-    <label class="form-check-label" for="Técnico en Ingeniería de Sistemas Informáticos"><p class="text-dark">Técnico en Ingeniería de Sistemas Informáticos</p>
-</div>
-<br>
-<div class="form-check text-start">
-    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Hardware Computacional">
-    <label class="form-check-label" for="Técnico en Hardware Computacional"><p class="text-dark">Técnico en Hardware Computacional</p>
-</div>
-    <br>
-<div class="form-check text-start">
-    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Gestión Tecnológica del Patrimonio Cultural" >
-    <label class="form-check-label" for="Técnico en Gestión Tecnológica del Patrimonio Cultural"><p class="text-dark">Téc. en Gestión Tecnológica del Patrimonio Cultural</p>
-</div>
-<br>
-    <div class="form-check  text-start">
-    <input class="form-check-input" type="checkbox" name="carreras[]" value="Técnico en Ingeniería Eléctrica" >
-    <label class="form-check-label" for="Técnico en Ingeniería Eléctrica"><p class="text-dark">Técnico en Ingeniería Eléctrica</p>
-</div>
-<br>
-    <input class="btn btn-primary" type="submit" name="enviar" value="Registrarme">
-    <br>
-    </form>
-</div>
-<!--Tercer contenedor--> 
-<div class="col-md-3 ">
 </div>
 
 <?php
@@ -105,6 +87,6 @@ if (isset($_POST["enviar"]))
 
             $rs = $objeto -> SQL_insert($tabla, $campos, $datos);
             echo "<script>window.alert('¡Usuario registrado!');</script>";
-        }
+        } 
 }
 ?>

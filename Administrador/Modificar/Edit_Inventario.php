@@ -16,7 +16,26 @@ $objeto = new ClsConnection();
 
 		$condicion = "idActivo = ".$_GET["idActivo"]."";
 		$rs = $objeto -> SQL_modificar("inventario", $datos, $condicion);
-		echo "<script>alert('ACTIVO FIJO EDITADO'); window.location='?pagina=Inventario.php&opcion=all';</script>";
+
+        $tabla= "inventario INNER JOIN grupos ON (inventario.idGrupo_FK2 = grupos.idGrupo) INNER JOIN subgrupos ON (inventario.idSubgrupo_FK = subgrupos.idSubgrupo) INNER JOIN usuarios ON (inventario.carnet_FK = usuarios.carnet)";
+        $consulta = $objeto -> SQL_consulta($tabla, "idActivo, carnet_FK, calidad");
+        while ($fila = $consulta -> fetch_assoc())
+        {
+            if(!($fila["carnet_FK"] == $_GET["Carnet"]))
+            {
+                    echo "<script>
+                            var resultado = window.confirm('Se ha hecho una reasignación. ¿Quieres registrar este cambio?');
+                            if (resultado === true) 
+                            {
+                                window.location='?pagina=Reasignacion.php&Anterior=".$_GET["Carnet"]."&Nuevo=".$datos["carnet_FK"]."&Calidad=$fila[calidad]&Activo=$fila[idActivo]';
+                            } 
+                            else 
+                            {
+                                alert('ACTIVO FIJO EDITADO'); window.location='?pagina=Inventario.php&opcion=all';
+                            }
+                        </script>";
+            }
+        }
 	}
 	$tabla = "inventario";
 	$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", "idActivo= ".$_GET["idActivo"]."");

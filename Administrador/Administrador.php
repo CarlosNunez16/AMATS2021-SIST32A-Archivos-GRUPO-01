@@ -15,6 +15,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../js/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function genPDF()
+        {
+            html2canvas(document.getElementById("tabla"), {
+                onrendered:function(canvas){
+
+                var doc = new jsPDF();
+                doc.save('Inventario.pdf');
+                }
+            });
+        }
+    </script>
     <script src='../Hora.js'></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
@@ -28,7 +41,7 @@
         { 
             var URL = "http://localhost/PROYECTO/AMATS2021-SIST32A-Archivos-GRUPO-01/Administrador/Administrador.php";
             var web = document.form1.tipo.options[document.form1.tipo.selectedIndex].value;
-            window.open(URL+web, '_self', '');
+            window.open(URL+web, '_self', ''); 
         }
     </script>
     <title>Administrador</title> 
@@ -48,7 +61,7 @@
                     </div>
                 </div>
             </header>
-        </div>
+        </div> 
         <nav class="row navbar navbar-expand-lg"  style="background-color:#8B0000">
                 <div class="col-10 d-inline collapse navbar-collapse d-flex" id="navbarNavDropdown">
                     <ul class="navbar-nav">
@@ -74,6 +87,7 @@
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Activos fijos</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Inventario.php&opcion=all">Inventario</a></li>
+                                    <li><a class="dropdown-item" href="Administrador.php?pagina=ConsReasignaciones.php&opcion=all">Reasignaciones</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Estado_Activo.php">Estado del activo</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Grupos.php">Grupo</a></li>
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Subgrupos.php">Subgrupos</a></li>
@@ -92,7 +106,7 @@
                 <div class="col-2 d-inline collapse">
                     <ul class="nav justify-content-end">
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="userIcon.gif" alt="User" width="25" height="25">&nbsp <?php echo $_SESSION["Administrador"][0];?></a>
+                                <a class="nav-link text-white nav-item dropdown"  aria-current="page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="userIcon.gif" alt="User" width="25" height="25" ><b title="<?php echo $_SESSION["Administrador"][1]." ".$_SESSION["Administrador"][2];?>">&nbsp <?php echo $_SESSION["Administrador"][0];?></b></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Modificar/Perfil.php">Perfil</a></li> 
                                     <li><a class="dropdown-item" href="Administrador.php?pagina=Modificar/Password.php">Cambiar contraseña</a></li>

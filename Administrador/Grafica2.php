@@ -95,6 +95,3 @@ $datos=implode(",",$fila);
 			window.myPie.update();
 		});
 	</script>
-</body>
-
-</html>

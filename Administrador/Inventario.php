@@ -97,7 +97,7 @@ if (isset($_POST['enviar']))
     $datos[] = $_POST['modelo'];
     $datos[] = $_POST['color'];
     $datos[] = $_POST['serie'];
-    $datos[] = $_POST['usuarios'];
+    $datos[] = $_POST['usuarios']; 
     $datos[] = $_POST['ubicacion'];
     $datos[] = date("Y-m-d");
     $datos[] = $_POST['calidad'];
@@ -120,7 +120,7 @@ if (isset($_POST['enviar']))
 ?>
 
 <div class="row d-flex justify-content-center">
-	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+	<div class="col-4 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
         <h1 class="text-center fs-4">CONSULTA DEL INVENTARIO</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-6">
@@ -174,12 +174,23 @@ if (isset($_POST['enviar']))
     </div>
 </div>
 
+<div class="row">
+    <div class="col-1">
+        <a href="imprimir.php?tabla=inventario" target="_blank" class="btn btn-secondary" title="IMPRIMIR">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
 <?php
 if(isset($_POST["buscar"]))
 {
 	$dato = $_POST["dato"];
 	echo "
-    <div class='row d-flex justify-content-center'>
+    <div class='row d-flex justify-content-center' id='tabla'>
         <div class='col-12 m-3'>
             <table class='table table-dark table-striped table-hover'>
             <form method='post'>
@@ -196,7 +207,7 @@ if(isset($_POST["buscar"]))
                         <th scope='col'>Número de serie</th>
                         <th scope='col'>Usuario encargado</th>
                         <th scope='col'>Ubicación del activo</th>
-                        <th scope='col'>Fecha de asignación</th>
+                        <th scope='col'>Fecha de registro</th>
                         <th scope='col'>Calidad del activo</th>
                         <th scope='col'>Acción</th>
                     </tr>
@@ -315,9 +326,9 @@ if(isset($_POST["buscar"]))
             }
         }
 }
-else{
+else{ 
     echo "
-    <div class='row d-flex justify-content-center'>
+    <div class='row d-flex justify-content-center' id='tabla'>
         <div class='col-12 m-3'>
             <table class='table table-dark table-striped table-hover'>
             <form method='post'>
@@ -334,7 +345,7 @@ else{
                         <th scope='col'>Número de serie</th>
                         <th scope='col'>Usuario encargado</th>
                         <th scope='col'>Ubicación del activo</th>
-                        <th scope='col'>Fecha de asignación</th>
+                        <th scope='col'>Fecha de registro</th>
                         <th scope='col'>Calidad del activo</th>
                         <th scope='col'>Acción</th>
                     </tr>
@@ -342,7 +353,7 @@ else{
                 <tbody>";
         
                     $tabla = "inventario INNER JOIN grupos ON (inventario.idGrupo_FK2 = grupos.idGrupo) INNER JOIN subgrupos ON (inventario.idSubgrupo_FK = subgrupos.idSubgrupo) INNER JOIN usuarios ON (inventario.carnet_FK = usuarios.carnet)";
-                    $campos = "inventario.idActivo, grupos.nombre AS nombre_G, subgrupos.nombre AS nombre_SG, inventario.nombre as Nombre, marca, modelo, color, numero_serie, usuarios.nombres AS User_Name, usuarios.apellidos AS User_Lastname, ubicacion, fecha_asignacion, calidad";
+                    $campos = "inventario.idActivo, grupos.nombre AS nombre_G, subgrupos.nombre AS nombre_SG, usuarios.carnet as Carnet, inventario.nombre as Nombre, marca, modelo, color, numero_serie, usuarios.nombres AS User_Name, usuarios.apellidos AS User_Lastname, ubicacion, fecha_asignacion, calidad";
                     $consulta = $objeto -> SQL_consulta($tabla, $campos);
 
                     if (mysqli_num_rows($consulta) < 1) 
@@ -373,7 +384,7 @@ else{
                                 <td>$fila[ubicacion]</td>
                                 <td>$fila[fecha_asignacion]</td>
                                 <td>$fila[calidad]</td>
-                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Inventario.php&idActivo=$fila[idActivo]'>Modificar</a></td>
+                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Inventario.php&idActivo=$fila[idActivo]&Carnet=$fila[Carnet]'>Modificar</a></td>
                             </tr>";
                             echo"<script type='text/javascript'>
                                     $(document).ready(function(){
