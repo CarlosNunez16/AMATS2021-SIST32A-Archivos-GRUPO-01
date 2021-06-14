@@ -178,6 +178,7 @@
             </div>
             <div class="col-12">
                 <input class="btn btn-success" type="submit" name="Terminar" value="Terminar">
+                <a class='btn btn-danger' href='Administrador.php?pagina=Mantenimiento.php&opcion=all'>Cancelar</a>
             </div>
         </form>
     </div>
@@ -208,7 +209,7 @@ if (isset($_POST["Terminar"]))
         $campos = array('idMantenimiento_FK','carnet_FK4','refacciones');
         $rs = $objeto -> SQL_insert($tabla, $campos, $datosRef);
 
-        $datos["total"] = $_POST["gasto"];
+        $datos["total"] = "$ ".$_POST["gasto"];
         $datos["tiempo"] = $_POST["duracion"];
         $datos["calidad_nueva"] = $_POST["calidad"];
         $datos["refacciones"]= $datosRef[2];

@@ -84,4 +84,37 @@ elseif($_GET["tabla"] == "misMantenimientos")
 	}
 	$pdf->Output();
 }
+elseif($_GET["tabla"] == "EnMantenimientoMy")
+{
+	$tabla = "inventario INNER JOIN mantenimientos ON (inventario.idActivo = mantenimientos.idActivo_FK2)";
+	$campos = "idActivo, nombre";
+	$condicion= "calidad_nueva = 'Sin revisar' and carnet_FK3 = ".$_SESSION["Estudiante_Empleado"][0]."";
+	$consulta = $objeto -> SQL_consulta_condicional($tabla, $campos, $condicion);
+
+	$pdf = new PDF('L','mm','Letter'); 
+	$pdf->AliasNbPages(); 
+	$pdf->AddPage();
+	
+
+	$pdf->SetFont('Arial','B',15);
+	$pdf->Cell(250,10, utf8_decode('REPORTE DE ACTIVOS FIJOS EN MANTENIMIENTO'),10,1,'C');
+	$pdf->Ln(5);
+
+	$pdf->SetLeftMargin(90);
+	$pdf->SetFillColor(232,232,232);
+	$pdf->SetFont('Arial','B',8);
+	$pdf->Cell(10,6,'ID',1,0,'C',1);
+	$pdf->Cell(40,6,utf8_decode('Nombre'),1,0,'C',1);
+	$pdf->Cell(40,6,utf8_decode('Estado'),1,1,'C',1);
+	
+	
+	while($row = $consulta->fetch_assoc())
+	{
+		$pdf->SetFont('Arial','',8);
+		$pdf->Cell(10,6,$row['idActivo'],1,0,'C', 1);
+		$pdf->Cell(40,6,utf8_decode($row['nombre']),1,0,'C', 1);
+		$pdf->Cell(40,6,utf8_decode("Sin terminar"),1,1,'C', 1);
+	}
+	$pdf->Output();	
+}
 ?>

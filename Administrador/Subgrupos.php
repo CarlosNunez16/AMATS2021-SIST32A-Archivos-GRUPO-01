@@ -116,7 +116,7 @@ if(isset($_POST["buscar"]))
                             <td>$fila[nombre]</td>
                             <td>$fila[nombre_G]</td>
                             <td>$fila[descripcion]</td>
-                            <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Subgrupos.php&grupo=$fila[idSubgrupo]'>Modificar</a></td>
+                            <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Subgrupos.php&Subgrupo=$fila[idSubgrupo]'>Modificar</a></td>
                         </tr>";
                         echo"<script type='text/javascript'>
                                 $(document).ready(function(){

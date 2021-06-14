@@ -5,7 +5,7 @@
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-12">
                 <label class='form-label' for='dato'>Ingresar fecha:</label>
-                <input class='form-control' type='date' max="<?php date("Y-m-d");?>" name='dato' required>     
+                <input class='form-control' type='date' max="<?php echo date("Y-m-d");?>" name='dato' required>     
             </div> 
             <div class="col-md-12">
                 <input class='btn btn-success' type='submit' name='buscar'  value='Buscar'>
@@ -86,7 +86,7 @@ else{
                     
                     if (mysqli_num_rows($consulta) < 1) 
                     {
-                        echo "<tr><td colspan='14' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
+                        echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
                     }                    
                     else
                     {

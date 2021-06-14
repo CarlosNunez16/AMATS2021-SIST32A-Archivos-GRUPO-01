@@ -79,7 +79,7 @@ if (isset($_POST["enviar"]))
 
         if (mysqli_num_rows($consulta) > 0) 
         {
-            echo "<script>alert('Ya existe')</script>";
+            echo "<script>alert('El usuario que intentas registrar ya existe en la base de datos.')</script>";
         }
         else
         {

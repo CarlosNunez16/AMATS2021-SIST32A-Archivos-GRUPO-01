@@ -1,7 +1,7 @@
 <?php
 if($_SESSION["Estudiante_Empleado"][3] == "Estudiante")
 {
-    echo "<script>alert('No tienes privilegios de adminsitrador o empleado bobo'); window.location='?pagina=Prestamo.php&opcion=all';</script>";
+    echo "<script>alert('No tienes privilegios de administrador o empleado.'); window.location='?pagina=Prestamo.php&opcion=all';</script>";
 }
 else
 {?>

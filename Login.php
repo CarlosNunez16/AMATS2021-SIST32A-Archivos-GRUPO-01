@@ -116,7 +116,7 @@ else
             $fila = $consulta -> fetch_assoc(); 
             if ($fila["tipo_usuario"] == "Administrador")
             {
-                if ($fila["cantidad_reportes"] > 5) 
+                if ($fila["cantidad_reportes"] > 4) 
                 {
                     echo"<script>alert('Usted esta baneado.')</script>";
                 }
@@ -132,7 +132,7 @@ else
             }
             elseif ($fila["tipo_usuario"] == "Estudiante")
             {
-                if ($fila["cantidad_reportes"] > 5) 
+                if ($fila["cantidad_reportes"] > 4) 
                 {
                     echo"<script>alert('Usted esta baneado.')</script>";
                 }
@@ -148,7 +148,7 @@ else
             }
             elseif ($fila["tipo_usuario"] == "Empleado")
             {
-                if ($fila["cantidad_reportes"] > 5) 
+                if ($fila["cantidad_reportes"] > 4) 
                 {
                     echo"<script>alert('Usted esta baneado.')</script>";
                 }

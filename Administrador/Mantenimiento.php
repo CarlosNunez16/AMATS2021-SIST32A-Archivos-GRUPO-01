@@ -99,7 +99,7 @@
 ?>
 
 <div class="row d-flex justify-content-center">
-	<div class="col-8 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
+	<div class="col-4 m-3 s-1 p-3 border border-dark rounded-3 d-block" style="background-color:#F5F5F5">
         <h1 class="text-center fs-4">CONSULTA</h1>
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-6">
@@ -203,7 +203,7 @@ if(isset($_POST["buscar"]))
                     
                     if (mysqli_num_rows($consulta) < 1) 
                     {
-                        echo "<tr><td colspan='11' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
+                        echo "<tr><td colspan='12' class='text-center'>NO HAY COINCIDENCIAS.</td></tr>";
                     }
                     else
                     {
@@ -277,7 +277,7 @@ else
 
                     if (mysqli_num_rows($consulta) < 1) 
                     {
-                        echo "<tr><td colspan='14' class='text-center'>NO HAY REGISTROS.</td></tr>";
+                        echo "<tr><td colspan='12' class='text-center'>NO HAY REGISTROS.</td></tr>";
                     }
                     else
                     {

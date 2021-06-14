@@ -215,7 +215,7 @@ if(isset($_POST["buscar"]))
                 <tbody>";
     
                     $tabla = "inventario INNER JOIN grupos ON (inventario.idGrupo_FK2 = grupos.idGrupo) INNER JOIN subgrupos ON (inventario.idSubgrupo_FK = subgrupos.idSubgrupo) INNER JOIN usuarios ON (inventario.carnet_FK = usuarios.carnet)";
-                    $campos = "inventario.idActivo, grupos.nombre AS nombre_G, subgrupos.nombre AS nombre_SG, inventario.nombre as Nombre, marca, modelo, color, numero_serie, usuarios.nombres AS User_Name, usuarios.apellidos AS User_Lastname, ubicacion, fecha_asignacion, calidad";
+                    $campos = "inventario.idActivo, grupos.nombre AS nombre_G, subgrupos.nombre AS nombre_SG, inventario.nombre as Nombre, marca, modelo, color, numero_serie, usuarios.nombres AS User_Name, usuarios.apellidos AS User_Lastname, usuarios.carnet as Carnet, ubicacion, fecha_asignacion, calidad";
                     if($_GET["opcion"] == "Grupo" || $_GET["opcion"] == "all")
                     {
                         $condicion = " where grupos.nombre like '%$dato%'";
@@ -287,7 +287,7 @@ if(isset($_POST["buscar"]))
                                 <td>$fila[ubicacion]</td>
                                 <td>$fila[fecha_asignacion]</td>
                                 <td>$fila[calidad]</td>
-                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Inventario.php&idActivo=$fila[idActivo]'>Modificar</a></td>
+                                <td><a class='btn btn-warning' href='Administrador.php?pagina=Modificar/Edit_Inventario.php&idActivo=$fila[idActivo]&Carnet=$fila[Carnet]'>Modificar</a></td>
                             </tr>";
                             echo"<script type='text/javascript'>
                                     $(document).ready(function(){

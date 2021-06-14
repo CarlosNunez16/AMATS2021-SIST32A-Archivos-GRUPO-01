@@ -5,7 +5,7 @@
 		<form class="row g-3 needs-validation" name='form1' method="post" target='_self'>
             <div class="col-md-12">
                 <label class='form-label' for='dato'>Escribe aquí:</label>
-                <input class='form-control' type='text' name='dato' required>     
+                <input class='form-control' placeholder="Refacciones..." type='text' name='dato' required>     
             </div> 
             <div class="col-md-12">
                 <input class='btn btn-success' type='submit' name='buscar'  value='Buscar'>

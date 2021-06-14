@@ -83,23 +83,23 @@ if(isset($_POST["buscar"]))
 						<tbody>";
 						if($_GET["opcion"] == "Carnet" || $_GET["opcion"] == "all")
 						{
-							$condicion = "carnet like '%$dato%' and cantidad_reportes > 5";
+							$condicion = "carnet like '%$dato%' and cantidad_reportes > 4";
 						}
 						elseif($_GET["opcion"] == "Nombres")
 						{
-							$condicion = "nombres like '%$dato%' and cantidad_reportes > 5";
+							$condicion = "nombres like '%$dato%' and cantidad_reportes > 4";
 						}
 						elseif($_GET["opcion"] == "Apellidos")
 						{
-							$condicion = "apellidos like '%$dato%' and cantidad_reportes > 5";
+							$condicion = "apellidos like '%$dato%' and cantidad_reportes > 4";
 						}
 						elseif($_GET["opcion"] == "Tipo")
 						{
-							$condicion = "tipo_usuario like '%$dato%' and cantidad_reportes > 5";
+							$condicion = "tipo_usuario like '%$dato%' and cantidad_reportes > 4";
 						}
 						elseif($_GET["opcion"] == "Carrera")
 						{
-							$condicion = "carrera like '%$dato%' and cantidad_reportes > 5";
+							$condicion = "carrera like '%$dato%' and cantidad_reportes > 4";
 						}
 								$tabla = 'usuarios';
 								$consulta = $objeto -> SQL_consulta_condicional($tabla, "*", $condicion);
@@ -164,7 +164,7 @@ else
 						</thead>
 						<tbody>";
 								$tabla = 'usuarios';
-                                $condicion = " where cantidad_reportes > 5";
+                                $condicion = " where cantidad_reportes > 4";
 								$consulta = $objeto -> SQL_consulta($tabla.$condicion, "*");
 
 								if (mysqli_num_rows($consulta) < 1) 

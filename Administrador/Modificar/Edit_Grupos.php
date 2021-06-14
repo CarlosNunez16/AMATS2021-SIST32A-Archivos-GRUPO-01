@@ -29,6 +29,7 @@ $objeto = new ClsConnection();
 						</div>
 						<div class='col-12'>
 							<input class='btn btn-success' type='submit' name='Modificar' value='Modificar'>
+							<a class='btn btn-danger' href='Administrador.php?pagina=Grupos.php'>Cancelar</a>
 						</div>
 					</form>
 				</div>

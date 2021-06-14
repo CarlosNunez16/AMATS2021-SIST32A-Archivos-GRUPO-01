@@ -43,7 +43,7 @@
                     <option value='?pagina=ActivosFijos.php&opcion=Serie'>Número de serie</option>
                     <option value='?pagina=ActivosFijos.php&opcion=Usuario'>Usuario responsable</option>
                     <option value='?pagina=ActivosFijos.php&opcion=Ubicacion'>Ubicación</option>
-                    <option value='?pagina=ActivosFijos.php&opcion=Fecha'>Fecha de asignación</option>
+                    <option value='?pagina=ActivosFijos.php&opcion=Fecha'>Fecha de registro</option>
                     <option value='?pagina=ActivosFijos.php&opcion=Calidad'>Calidad del activo</option>
                 </select>
             </div>

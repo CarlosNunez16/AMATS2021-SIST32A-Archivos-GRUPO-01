@@ -35,6 +35,12 @@ $objeto = new ClsConnection();
                             }
                         </script>";
             }
+            elseif($fila["carnet_FK"] == $_GET["Carnet"])
+            {
+                    echo "<script>
+                                alert('ACTIVO FIJO EDITADO'); window.location='?pagina=Inventario.php&opcion=all';
+                        </script>";
+            }
         }
 	}
 	$tabla = "inventario";
@@ -105,7 +111,7 @@ $objeto = new ClsConnection();
                         <select class='form-select' name='usuarios'>
                         ";
                         $tabla = 'usuarios';
-                        $consulta = $objeto -> SQL_consulta($tabla, 'carnet, nombres, apellidos');
+                        $consulta = $objeto -> SQL_consulta($tabla." where tipo_usuario='Administrador' or tipo_usuario='Empleado'", "carnet, nombres, apellidos", 'carnet, nombres, apellidos');
                         while ($fila = $consulta -> fetch_assoc())
                         {
                             $carnet = "$fila[carnet]";
@@ -138,6 +144,7 @@ $objeto = new ClsConnection();
                     </div>
                     <div class='col-md-12'>
                         <input class='btn btn-success' type='submit' name='Modificar' value='Modificar'>
+                        <a class='btn btn-danger' href='Administrador.php?pagina=Inventario.php&opcion=all'>Cancelar</a>
                     </div>
                 </form>
             </div>
